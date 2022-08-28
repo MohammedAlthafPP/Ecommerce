@@ -4,24 +4,34 @@ import { Link } from "react-router-dom";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 
-const options = {
-  edit: false,
-  color: "rgba(20,20,20,0.1)",
-  activeColor: "tomato",
-  size: window.innerWidth < 600 ? 20 : 25,
-  value: 3.6,
-  isHalf: true,
-};
 
-function Product({ product }) {
+
+
+function ProductCard({ product }) {
+
+ 
+
+  const options = {
+    edit: false,
+    color: "rgba(20,20,20,0.1)",
+    activeColor: "tomato",
+    size: window.innerWidth < 600 ? 20 : 25,
+    value: product.ratings,
+    isHalf: true,
+  };
+
+ 
+
+
   return (
-    <Link className="productCard" to={product._id}>
-      <img src={product.image[0].url} alt="" />
+    
+    <Link className="productCard" to={`/product/${product._id}`}>
+      <img src={product.images[0].url} alt="" />
       <p>{product.name}</p>
       <div>
-        <ReactStars {...options} size="14"/> <span> (256 Reviews) </span>
+        <ReactStars {...options} size="14"/> <span> ({product.numOfReviews} Reviews) </span>
       </div>
-      <span>{product.price}</span>
+      <span>	&#8377; {product.price}</span>
 
       <div className="cartButton">
      
@@ -36,7 +46,8 @@ function Product({ product }) {
 
       </div>
     </Link>
+   
   );
 }
 
-export default Product;
+export default ProductCard;

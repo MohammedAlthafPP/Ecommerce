@@ -4,20 +4,32 @@ const User = require("../models/userModel");
 const sendToken = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendEmail");
 const crypto = require("crypto");
-
+const cloudinary = require("cloudinary");
 
 //Register a User
 exports.registerUser = catchAsyncError(async (req, res, next) => {
-  const { name, email, password } = req.body;
+  const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+    folder: "avatars",
+    width: 150,
+    crop: "scale",
+  });
+
+  const { name, email, phone, password } = req.body;
+
   const user = await User.create({
     name,
     email,
+    phone,
     password,
     avatar: {
-      public_id: "this is a sample id",
-      url: "profilepicURL",
+      public_id: myCloud.public_id,
+      url: myCloud.secure_url,
     },
   });
+
+  if (!user) {
+    return next(new ErrorHander("something went wrong please try again", 401));
+  }
 
   sendToken(user, 201, res);
 });
@@ -174,9 +186,26 @@ exports.updateProfile = catchAsyncError(async (req, res, next) => {
   const newUserData = {
     name: req.body.name,
     email: req.body.email,
+    phone: req.body.phone,
   };
+console.log(req.body.avatar,"==========req.body.avatar[0].public_id");
+  if (req.body.avatar !== 'undefined' && req.body.avatar) {
+    const user = await User.findById(req.user.id);
+    console.log(user.avatar[0].public_id);
+    const imageId = user.avatar[0].public_id;
+    await cloudinary.v2.uploader.destroy(imageId);
 
-  // Add Cloudinary Later
+    const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+      folder: "avatars",
+      width: 150,
+      crop: "scale",
+    });
+
+    newUserData.avatar = {
+      public_id: myCloud.public_id,
+      url: myCloud.secure_url,
+    };
+  }
 
   const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
     new: true,

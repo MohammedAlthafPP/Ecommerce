@@ -1,0 +1,22 @@
+PORT = 4000
+
+DB_URI = "mongodb://localhost:27017/Ecommerce"
+
+JWT_SECRET = SDSDGHGJHJKKLKGFFGDGFFTYFCFD
+
+JWT_EXPIRE =5d
+
+COOKIE_EXPIRE = 5
+
+MY_SITE = Ecommerce 
+
+SMPT_SERVICE = gmail.com
+
+SMPT_MAIL = "your email"
+ 
+SMPT_PASSWORD = "your app password"
+
+SMPT_HOST = smtp.gmail.com
+
+SMPT_PORT = 465
+

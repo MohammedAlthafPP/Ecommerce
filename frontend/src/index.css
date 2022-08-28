@@ -1,20 +1,15 @@
 :root {
+  --primary-color: #ff6347;
+  --primary-color-hover: rgb(214, 84, 61);
 
-  --primary-color : #FF6347;
-  
-  --prime-white-color : #FFFFFF;
-  --homepage-h1-color :  rgb(0,0, 0,0.7);
+  --prime-white-color: #ffffff;
+  --homepage-h1-color: rgb(0, 0, 0, 0.7);
+  --backgroudColor: rgb(245, 245, 240);
 
-  --primary-font-family : "Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif";
-  --Roboto-font-family : "Roboto" ;
-  --LucidaSans-font-family : "Lucida Sans" ;
-
+  --primary-font-family: "Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif";
+  --Roboto-font-family: "Roboto";
+  --LucidaSans-font-family: "Lucida Sans";
 }
-
-
-
-
-
 
 /* 
 

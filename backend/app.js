@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const cookieParser = require("cookie-parser");
 const cors = require ("cors")
+const bodyparser = require("body-parser");
+const fileUpload = require("express-fileupload")
 
 app.use(
     cors({
@@ -17,6 +19,9 @@ const erroeMiddleware = require("./middleware/error");
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(bodyparser.urlencoded({extended:true}))
+app.use(fileUpload({useTempFiles: true}));
+
 
 // Route Import
 const product = require("./routes/productRoute");

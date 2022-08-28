@@ -18,6 +18,12 @@ const userSchema = new mongoose.Schema({
     unique: true,
     validate: [validator.isEmail, "Please Enter a valid Email"],
   },
+  phone: {
+    type: Number,
+    required: [true, "Please Enter your Mobile Number"],
+   
+    minLength: [10, "Mobile Number should have 10 charectors"],
+  },
   password: {
     type: String,
     required: [true, "Please Enter your Password"],
@@ -28,11 +34,11 @@ const userSchema = new mongoose.Schema({
     {
       public_id: {
         type: String,
-        required: true,
+        
       },
       url: {
         type: String,
-        required: true,
+        
       },
     },
   ],

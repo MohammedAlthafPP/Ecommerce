@@ -11,7 +11,7 @@ export const getAllProductData =  createAsyncThunk(
     try {
         
         const {data} = await axios.get("/products")
-        console.log(data, "==========Data");
+        
         return data;
         
     } catch (error) {
@@ -19,7 +19,21 @@ export const getAllProductData =  createAsyncThunk(
     }
 });
 
+//GET Product Details
+export const getProductDetails =  createAsyncThunk(
+    "productDetails/getProductDetails",
+    async (arg, {isRejectedWithValue}) => {
 
+    try {
+        
+        const {data} = await axios.get(`/product/`)
+        console.log(data, "==========Data");
+        return data;
+        
+    } catch (error) {
+        isRejectedWithValue(error.response.data)
+    }
+});
 // //for pending status update
 // export const pendingStatus =  createAsyncThunk(
 //     "application/getAppData",

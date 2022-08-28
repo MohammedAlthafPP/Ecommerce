@@ -7,6 +7,7 @@
   align-items: center;
   background-color: rgb(231, 231, 231);
   position: fixed;
+  margin-top: 3vmax;
   top: 0%;
   left: 0;
 }
@@ -14,7 +15,7 @@
 .LoginSignUpBox {
   background-color: var(--prime-white-color);
   width: 25vw;
-  height: 70vh;
+  height: 80vh;
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -64,7 +65,8 @@
 }
 
 #registerImage > img {
-  width: 3vm1x;
+  width:3vmax;
+  height: 3vmax;
   border-radius: 100%;
 }
 #registerImage > input {
@@ -75,12 +77,13 @@
 #registerImage > input::file-selector-button {
   cursor: pointer;
   width: 100%;
+  z-index: 2;
   height: 5vh;
   border: none;
   margin: 0%;
   font: 400 0.8vmax cursive;
   transition: all 0.5s;
-  padding: 0.1vmax;
+  padding: 0 1vmax;
   color: rgba(0, 0, 0, 0.623);
   background-color: rgb(255, 255, 255);
 }
@@ -165,10 +168,54 @@
   transform: translateX(100%);
 }
 
+
+@media screen and (max-width: 1024px) {
+  .loginForm > a {
+    font-size:1.2vmax;
+  }
+  .LoginSignUpBox {
+    width: 65vh;
+    height: 80vh;
+  }
+
+}
+@media screen and (max-width: 768px) {
+  .loginForm > a {
+    font-size:1.5vmax;
+  }
+
+  .LoginSignUpBox {
+    width: 55vh;
+    height: 80vh;
+  }
+  .loginForm > div > input,
+  .signUpForm > div > input {
+    padding: 1.5vmax 5vmax;
+    font: 300 1.7vmax cursive;
+  }
+  .loginForm > div > svg,
+  .signUpForm > div > svg {
+    font-size: 2.3vmax;
+  }
+  #registerImage > img {
+    width: 5vmax;
+    height: 5vmax;
+    border-radius: 100%;
+  }
+  #registerImage > input::file-selector-button {
+    height: 5vh;
+    font: 400 1.8vmax cursive;
+  }
+ 
+  
+
+}
+
 @media screen and (max-width: 600px) {
   .LoginSignUpContainer {
     background-color: rgb(255, 255, 255);
-    margin-top: 66px;
+    margin-top: 10vmax;
+    
   }
   .LoginSignUpBox {
     width: 100vh;
@@ -194,7 +241,7 @@
     font-size: 2.8vmax;
   }
   .loginForm > a {
-    font: 500 1.8vmax "Gill Sans";
+    font: 500 2.5vmax "Gill Sans";
   }
 
   #registerImage > img {
