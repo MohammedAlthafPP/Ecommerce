@@ -41,7 +41,7 @@ function LoginSignUp() {
   });
 
   const { name, email, phone, password } = user;
-  const [avatar, setAvatar] = useState();
+  const [avatar, setAvatar] = useState("");
   const [avatarPreview, setAvatarPreview] = useState("/Profile.png");
   // "https://www.iconfinder.com/icons/4043232/avatar_batman_comics_hero_icon"
   const loginSubmit = (e) => {
@@ -84,7 +84,7 @@ function LoginSignUp() {
     }
 
     if (isAuthenticated) {
-      navigate("/user/account");
+      navigate("/products");
     }
   }, [dispatch, error, alert, navigate, isAuthenticated]);
 
@@ -145,7 +145,7 @@ function LoginSignUp() {
                     onChange={(e) => setLoginPassword(e.target.value)}
                   />
                 </div>
-                <Link to="/password/forgot">Forget Password ?</Link>
+                <Link to="/user/password/forgot">Forget Password ?</Link>
                 <input type="submit" value="Login" className="loginBtn" />
               </form>
               <form

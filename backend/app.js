@@ -35,12 +35,12 @@ app.use("/api/v1", order);
 //MiddlewRware for Errors
 app.use(erroeMiddleware);
 
-app.use(
-    cors({
-        origin: ["http://localhost:3000"],
-        method : ["GET","POST","PUT","DELETE"],
-        credentials: true,
-    })
-);
+// app.use(
+//     cors({
+//         origin: ["http://localhost:3000"],
+//         method : ["GET","POST","PUT","DELETE"],
+//         credentials: true,
+//     })
+// );
 
 module.exports = app;

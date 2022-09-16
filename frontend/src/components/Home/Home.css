@@ -1,5 +1,9 @@
 .banner {
-  background-image: linear-gradient(to right, #635dc0, #3027ae);
+  background-image: url("../../images/photo-1537498425277-c283d32ef9db.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* background-image: linear-gradient(to right, #635dc0, #3027ae); */
   height: 120vmin;
   display: flex;
   flex-direction: column;

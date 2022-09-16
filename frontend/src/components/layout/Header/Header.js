@@ -190,7 +190,7 @@ export default function Header() {
             component="div"
             sx={{ display: { xs: "none", sm: "block" } }}
           >
-            MUI
+            E-BUY
           </Typography>
           <form className="searchBox" onSubmit={searchSubmitHandler}>
             <Search>

@@ -13,7 +13,7 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
     width: 150,
     crop: "scale",
   });
-
+console.log(req.file,"req.file");
   const { name, email, phone, password } = req.body;
 
   const user = await User.create({
@@ -27,9 +27,9 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
     },
   });
 
-  if (!user) {
-    return next(new ErrorHander("something went wrong please try again", 401));
-  }
+  // if (!user) {
+  //   return next(new ErrorHander("something went wrong please try again", 401));
+  // }
 
   sendToken(user, 201, res);
 });
@@ -81,11 +81,13 @@ exports.forgotPassword = catchAsyncError(async (req, res, next) => {
 
   await user.save({ validateBeforeSave: false });
 
-  const resetPasswordUrl = `${req.protocol}://${req.get(
-    "host"
-  )}/api/v1/password/reset/${resetToken}`;
+  // const resetPasswordUrl = `${req.protocol}://${req.get(
+  //   "host"
+  // )}/api/v1/user/password/reset/${resetToken}`;
+  
+  const resetPasswordUrl = `${process.env.FRONTEND_URL}/user/password/reset/${resetToken}`;
 
-  const message = `Your password reset token is :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this email then please ignore it`;
+  const message = `Your password reset token is :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this email then please ignore it.`;
 
   try {
     await sendEmail({
@@ -188,10 +190,10 @@ exports.updateProfile = catchAsyncError(async (req, res, next) => {
     email: req.body.email,
     phone: req.body.phone,
   };
-console.log(req.body.avatar,"==========req.body.avatar[0].public_id");
+//console.log(req.body.avatar,"==========req.body.avatar[0].public_id");
   if (req.body.avatar !== 'undefined' && req.body.avatar) {
     const user = await User.findById(req.user.id);
-    console.log(user.avatar[0].public_id);
+    console.log(user.avatar[0].public_id,"======public_id");
     const imageId = user.avatar[0].public_id;
     await cloudinary.v2.uploader.destroy(imageId);
 

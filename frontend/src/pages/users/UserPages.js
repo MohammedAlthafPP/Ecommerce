@@ -6,6 +6,9 @@ import ProfilePage from "./ProfilePage";
 
 import PrivateRoute from "../../components/Route/PrivateRoute";
 import UpdateProfilePage from "./UpdateProfilePage";
+import UpdatePasswordPage from "./UpdatePasswordPage";
+import ForgotPasswordPage from "./ForgotPasswordPage";
+import ResetPasswordPage from "./ResetPasswordPage";
 
 function UserPages() {
   return (
@@ -20,6 +23,14 @@ function UserPages() {
         <Route path="" element={<UpdateProfilePage />} />
       </Route>
       
+      <Route path="/password/update" element={<PrivateRoute />}>
+        <Route path="" element={<UpdatePasswordPage />} />
+      </Route>
+
+      
+       <Route path="/password/forgot" element={<ForgotPasswordPage />} />
+       <Route path="/password/reset/:token" element={<ResetPasswordPage />} />
+
     </Routes>
   );
 }
