@@ -135,6 +135,8 @@ export default function Header() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
+      <Link to="/product/cart">
+    
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="error">
@@ -143,6 +145,7 @@ export default function Header() {
         </IconButton>
         <p>Bag</p>
       </MenuItem>
+      </Link>
       <MenuItem>
         <IconButton
           size="large"
@@ -206,15 +209,17 @@ export default function Header() {
           </form>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
+         <Link to="/cart">
             <IconButton
               size="large"
               aria-label="show 4 new mails"
               color="inherit"
             >
               <Badge badgeContent={4} color="error">
-                <LocalMallIcon />
+                <LocalMallIcon className="LocalMallIcon"/>
               </Badge>
             </IconButton>
+            </Link>
             <IconButton
               size="large"
               aria-label="show 17 new notifications"

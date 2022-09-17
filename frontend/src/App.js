@@ -14,6 +14,7 @@ import UserOptions from "./components/layout/Header/UserOptions";
 import { useSelector } from "react-redux";
 import Header from "./components/layout/Header/Header";
 import Footer from "./components/layout/Footer/Footer";
+import CartPage from "./pages/Product/CartPage";
 
 
 
@@ -37,6 +38,8 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/sad" element={<Loader />} />
         <Route path="/product/:id" element={<ProductDeatilsPage />} />
+        <Route path="/cart" element={<CartPage />} />
+
       </Routes>
       <Footer />
     </BrowserRouter>

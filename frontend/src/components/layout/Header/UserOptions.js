@@ -7,13 +7,15 @@ import PersonIcon from "@mui/icons-material/Person";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import DashboardIcon from "@mui/icons-material/Dashboard";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {useAlert} from "react-alert"
 import {logout} from "../../../redux/actions/userAction"
 
 
 function UserOptions({ user }) {
+  const { cartItems } = useSelector((state) => state.cart);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -21,6 +23,7 @@ function UserOptions({ user }) {
 
   const options = [
     { icon: <ListAltIcon />, name: "Orders", func: order },
+    { icon: <ShoppingCartIcon style={{color:cartItems.length > 0 ? "tomato" : "unset" }} />, name: `Cart(${cartItems.length})`, func: cart },
     { icon: <PersonIcon />, name: "Profile", func: account },
     { icon: <ExitToAppIcon />, name: "Logout", func: logoutUser },
   ];
@@ -38,6 +41,9 @@ function UserOptions({ user }) {
   }
   function order() {
     navigate("/user/order");
+  }
+  function cart() {
+    navigate("/cart");
   }
   function account() {
     navigate("/user/account");
