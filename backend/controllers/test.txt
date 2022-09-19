@@ -1,0 +1,14 @@
+ let cartItems = await Cart.find({ user: userId })
+    .populate({ path: "cartItems.product", populate: { path: "brandnames" } })
+    .populate({ path: "cartItems.product", populate: { path: "subcategory" } })
+    .populate({ path: "cartItems.product", populate: { path: "catagory" } });
+
+     let cartItems = await Cart.find({ user: req.user._id }).populate({
+       path: "user",
+       select: "name email -_id",
+     })
+       .populate({ path: "cartItems[0].product"})
+    
+
+     console.log(cart[0].cartItems[0].product, "=====Cart Items");
+    cart[0].cartItems.map((i) => console.log(i.product))

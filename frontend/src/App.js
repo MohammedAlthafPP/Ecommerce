@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 import Header from "./components/layout/Header/Header";
 import Footer from "./components/layout/Footer/Footer";
 import CartPage from "./pages/Product/CartPage";
+import { myCartItems, updateCart } from "./redux/actions/cartAction";
 
 
 
@@ -24,6 +25,11 @@ function App() {
   useEffect(() => {
     store.dispatch(loadUser());
   }, []);
+  
+  // useEffect(() => {
+  //   store.dispatch(myCartItems());
+  // }, []);
+
   return (
     <BrowserRouter>
       <Header />

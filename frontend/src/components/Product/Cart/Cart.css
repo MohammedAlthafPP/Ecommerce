@@ -160,6 +160,7 @@
     }
 
     .cartInput > input {
+        width: 2vmax;
         padding: 1.5vmax;
         font: 500 2vmax var(--Roboto-font-family);
     }

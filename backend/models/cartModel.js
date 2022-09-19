@@ -5,13 +5,46 @@ const cartSchema = new mongoose.Schema({
         type:Date,
         default:Date.now,  
     },
-    userEmail:String,
-    product: {
+    user: {
         type: mongoose.Schema.ObjectId,
-        ref : "Product",
-        required:true,
+        ref : "user",
+        
     },
-})
+    userEmail : String,
+    cartItems : 
+    [
+        {
+            product: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref : "Product",
+                required:true,
+            },
+            quantity:{
+                type:Number,
+                default: 1
+            },
+            price : {
+                type:Number,
+                required: true,
+
+            },
+            subtotal : {
+                type:Number,
+                default: function() {
+                    return parseInt(this.price * this.quantity)
+                }
+            },
+            name: String,
+            image: String,
+            stock :{
+                type : Number,
+                required: true,
+            }
+        }
+
+    ]
+    
+},{timestamps:true})
 
 
 

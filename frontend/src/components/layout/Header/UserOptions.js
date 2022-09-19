@@ -23,7 +23,7 @@ function UserOptions({ user }) {
 
   const options = [
     { icon: <ListAltIcon />, name: "Orders", func: order },
-    { icon: <ShoppingCartIcon style={{color:cartItems.length > 0 ? "tomato" : "unset" }} />, name: `Cart(${cartItems.length})`, func: cart },
+    // { icon: <ShoppingCartIcon style={{color:cartItems.length > 0 ? "tomato" : "unset" }} />, name: `Cart(${cartItems.length})`, func: cart },
     { icon: <PersonIcon />, name: "Profile", func: account },
     { icon: <ExitToAppIcon />, name: "Logout", func: logoutUser },
   ];

@@ -19,6 +19,7 @@ function ProductDetails() {
   const dispatch = useDispatch();
   const alert = useAlert();
 
+  const { message } = useSelector((state) => state.cart);
   const { product, loading, error } = useSelector(
     (state) => state.productDetails
   );
@@ -56,8 +57,10 @@ function ProductDetails() {
   };
 
   const addItemsToCartHandler = () => {
-    dispatch(addItemsToCart(id,quantity));
-    alert.success("Item Added To Cart");
+    
+    dispatch(addItemsToCart({id,quantity}));
+    let info = message ? message : `Item Added To Cart`
+    alert.success(info);
   }
 
   return (

@@ -18,6 +18,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 import "./Header.css";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -62,6 +63,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function Header() {
   const navigate = useNavigate();
   const [keyword, setKeyword] = useState("");
+  const { cartItems } = useSelector((state) => state.cart);
 
   const searchSubmitHandler = (e) => {
     e.preventDefault();
@@ -135,12 +137,13 @@ export default function Header() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <Link to="/product/cart">
+      <Link to="/cart">
     
       <MenuItem>
+      
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <LocalMallIcon />
+          <Badge badgeContent={6} color="error">
+            <LocalMallIcon className="mobLocalMallIcon" />
           </Badge>
         </IconButton>
         <p>Bag</p>
@@ -215,7 +218,7 @@ export default function Header() {
               aria-label="show 4 new mails"
               color="inherit"
             >
-              <Badge badgeContent={4} color="error">
+              <Badge badgeContent={7} color="error">
                 <LocalMallIcon className="LocalMallIcon"/>
               </Badge>
             </IconButton>
