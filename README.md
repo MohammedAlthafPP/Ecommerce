@@ -110,7 +110,7 @@ Install dependencies
 ```
 
 
-Go to the project backend directory
+Go to the project Ecommerce directory
 
 ```bash
   cd Ecommerce
