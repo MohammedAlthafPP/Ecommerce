@@ -85,6 +85,7 @@ function LoginSignUp() {
 
     if (isAuthenticated) {
       navigate("/products");
+      
     }
   }, [dispatch, error, alert, navigate, isAuthenticated]);
 

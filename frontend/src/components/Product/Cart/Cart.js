@@ -31,8 +31,10 @@ function Cart() {
   const dispatch = useDispatch();
   const alert = useAlert();
 
-const  {cartItems, error ,loading} = useSelector((state) => state.cart);
+const  {cartItems, error ,loading} = useSelector((state) => state.mycart);
 console.log(cartItems);
+console.log(cartItems && cartItems,"=====cartItems.length === 0 " );
+
 useEffect(() => {
     if (error) {
       alert.error(error.message);
@@ -45,46 +47,69 @@ useEffect(() => {
 
 
 
-  function doSomething(qty) {
-     let  globalQty = qty;
-     localStorage.setItem('globalQty', JSON.stringify(globalQty))
-  }
+//   function doSomething(qty) {
+//      let  globalQty = qty;
+//      localStorage.setItem('globalQty', JSON.stringify(globalQty))
+//   }
 
-  const globalQty =parseInt(localStorage.getItem("globalQty")
-  ? JSON.parse(localStorage.getItem("globalQty"))
-  : 1) 
-  console.log(globalQty,"=========globalQty");
- // const items = JSON.parse(localStorage.getItem('items'));
-// console.log(doSomething(),"===== globalQty");
+//   const globalQty =parseInt(localStorage.getItem("globalQty")
+//   ? JSON.parse(localStorage.getItem("globalQty"))
+//   : 1) 
+//   console.log(globalQty,"=========globalQty");
+//  // const items = JSON.parse(localStorage.getItem('items'));
+// // console.log(doSomething(),"===== globalQty");
 
 
 
-const [newQty, setNewQty] = useState(globalQty)
-  const increaseQuantity = (id,quantity,stock) => {
+// const [newQty, setNewQty] = useState(globalQty)
+//   const increaseQuantity = (id,quantity,stock) => {
 
-   // const Qty = globalQty + 1;
+//    // const Qty = globalQty + 1;
 
-    if (stock <= newQty) return;
-    let qty = newQty + 1;
-    setNewQty(qty)
-   // console.log(newQty,"========= New Qty");
-    dispatch(addItemsToCart(id,newQty))
-    localStorage.setItem('globalQty', JSON.stringify(newQty))
-    dispatch(myCartItems())
+//     if (stock <= newQty) return;
+//     let qty = newQty + 1;
+//     setNewQty(qty)
+//    // console.log(newQty,"========= New Qty");
+//     dispatch(addItemsToCart(id,newQty))
+//     localStorage.setItem('globalQty', JSON.stringify(newQty))
+//     dispatch(myCartItems())
           
-  }
+//   }
 
-  const decreaseQuantity = (id,quantity) => {
+//   const decreaseQuantity = (id,quantity) => {
    
-    if (1 >= newQty) return;
-    let qty = newQty - 1;
-    setNewQty(qty)
+//     if (1 >= newQty) return;
+//     let qty = newQty - 1;
+//     setNewQty(qty)
    
-    dispatch(addItemsToCart(id,newQty))
-    dispatch(myCartItems())
+//     dispatch(addItemsToCart(id,newQty))
+//     dispatch(myCartItems())
    
-  }
+//   }
   
+
+const increaseQuantity = (id,quantity,stock) => {
+
+   if (stock <= quantity) return;
+   let newQty = quantity + 1;
+   dispatch(addItemsToCart(id,newQty))
+   dispatch(myCartItems())
+ 
+ }
+
+ const decreaseQuantity = (id,quantity) => {
+  
+   if (1 >= quantity) return;
+   let newQty = quantity - 1;
+   
+  
+   dispatch(addItemsToCart(id,newQty))
+   dispatch(myCartItems())
+
+  
+ }
+ 
+
 
 
 
@@ -110,54 +135,17 @@ const [newQty, setNewQty] = useState(globalQty)
 
 
   return (
-    // <Fragment>
-    //   {cartItems.length === 0 ? (
-    //     <div className="emptyCart">
-    //       <RemoveShoppingCartIcon/>
+    <Fragment>
+      {cartItems && cartItems.length === 0 || !cartItems ? (
+        <div className="emptyCart">
+          <RemoveShoppingCartIcon/>
 
           
-    //       <Typography>No Product in Your Cart</Typography>
-    //       <Link to="/products">View Products</Link>
-    //     </div>
-    //   ) : (
-    //     <Fragment>
-    //     <div className="cartPage">
-    //       <div className="cartHeader">
-    //         <p>Product</p>
-    //         <p>Quantity</p>
-    //         <p>Subtotal</p>
-    //       </div>
-    //       {cartItems &&
-    //         cartItems.map((item) => (
-    //           <div className="cartContainer">
-    //             <CartItemCard item={item} />
-    //             <div className="cartInput">
-    //               <button onClick={()=>decreaseQuantity(item.product,item.quantity)}>-</button>
-    //               <input type="number" value={item.quantity} readOnly />
-    //               <button onClick={()=>increaseQuantity(item.product,item.quantity,item.stock)}>+</button>
-    //             </div>
-    //             <p className="cartSubtotal">{`₹${item.price * item.quantity}`}</p>
-    //           </div>
-    //         ))}
-  
-    //       <div className="cartGrossTotal">
-    //         <div></div>
-    //         <div className="cartGrossTotalBox">
-    //           <p>Gross Total</p>
-    //           <p>{`₹${cartItems.reduce((acc,item) => acc + item.quantity * item.price,0)}`}</p>
-    //         </div>
-    //         <div></div>
-    //         <div className="checkOutBtn">
-    //           <button>Check Out</button>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </Fragment>
-    //   )}
-    // </Fragment>
-
-
-    <Fragment>
+          <Typography>No Product in Your Cart</Typography>
+          <Link to="/products">View Products</Link>
+        </div>
+      ) : (
+        <Fragment>
         <div className="cartPage">
           <div className="cartHeader">
             <p>Product</p>
@@ -169,9 +157,9 @@ const [newQty, setNewQty] = useState(globalQty)
               <div className="cartContainer">
                 <CartItemCard item={item} />
                 <div className="cartInput">
-                  <button onClick={()=>{decreaseQuantity(item.product,item.quantity);doSomething(item.quantity)}}>-</button>
+                  <button onClick={()=>decreaseQuantity(item.product,item.quantity)}>-</button>
                   <input type="number" value={item.quantity} readOnly />
-                  <button onClick={()=>{increaseQuantity(item.product,item.quantity,item.stock );doSomething(item.quantity)}} >+</button>
+                  <button onClick={()=>increaseQuantity(item.product,item.quantity,item.stock)}>+</button>
                 </div>
                 <p className="cartSubtotal">{`₹${item.price * item.quantity}`}</p>
               </div>
@@ -190,6 +178,43 @@ const [newQty, setNewQty] = useState(globalQty)
           </div>
         </div>
       </Fragment>
+      )}
+    </Fragment>
+
+
+    // <Fragment>
+    //     <div className="cartPage">
+    //       <div className="cartHeader">
+    //         <p>Product</p>
+    //         <p>Quantity</p>
+    //         <p>Subtotal</p>
+    //       </div>
+    //       {cartItems &&
+    //         cartItems.map((item) => (
+    //           <div className="cartContainer">
+    //             <CartItemCard item={item} />
+    //             <div className="cartInput">
+    //               <button onClick={()=>decreaseQuantity(item.product,item.quantity)}>-</button>
+    //               <input type="number" value={item.quantity} readOnly />
+    //               <button onClick={()=>increaseQuantity(item.product,item.quantity,item.stock )} >+</button>
+    //             </div>
+    //             <p className="cartSubtotal">{`₹${item.price * item.quantity}`}</p>
+    //           </div>
+    //         ))}
+  
+    //       <div className="cartGrossTotal">
+    //         <div></div>
+    //         <div className="cartGrossTotalBox">
+    //           <p>Gross Total</p>
+    //           <p>{cartItems && cartItems.length > 0 && `₹${ cartItems.reduce((acc,item) => acc + item.quantity * item.price,0)}`}</p>
+    //         </div>
+    //         <div></div>
+    //         <div className="checkOutBtn">
+    //           <button>Check Out</button>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   </Fragment>
   );
 }
 

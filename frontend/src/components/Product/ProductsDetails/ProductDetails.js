@@ -58,7 +58,7 @@ function ProductDetails() {
 
   const addItemsToCartHandler = () => {
     
-    dispatch(addItemsToCart({id,quantity}));
+    dispatch(addItemsToCart(id,quantity));
     let info = message ? message : `Item Added To Cart`
     alert.success(info);
   }

@@ -136,13 +136,19 @@ exports.usersCartItems = catchAsyncErrors(async (req, res, next) => {
   //     },
   //   },
   // ])
+
   let newArray = cart.map((item) => item.cartItems);
-  let cartItems = newArray[0].map((item) => item);
-  // console.log(cartItems,"========cartItems==---000");
-  // console.log(CartItems,"===================================");
+  let Items = newArray[0].map((item) => item);
+
+  let cartItems = cart === undefined ? [] : Items;
+  console.log(cart,"=================================== cart");
+  console.log(cartItems,"===================================");
   // console.log(cartItems,"================ newCart");
 
   if (!cart) {
+    return next(new ErrorHander("Cart is Empty", 404));
+  }
+  if (!cartItems) {
     return next(new ErrorHander("Cart is Empty", 404));
   }
 

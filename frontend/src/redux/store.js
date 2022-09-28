@@ -22,7 +22,7 @@ const Store = configureStore({
     profile: profileReducer,
     forgotPassword : forgotPasswordReducer,
     cart : cartReducer,
-    cart : myCartReducer,
+    mycart : myCartReducer,
     
     
   },
