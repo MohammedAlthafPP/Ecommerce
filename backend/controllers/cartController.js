@@ -1,6 +1,7 @@
 const ErrorHander = require("../utils/errorhandler");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const Cart = require("../models/cartModel");
+const User = require("../models/userModel");
 const Product = require("../models/productModels");
 
 // Create Cart
@@ -102,41 +103,7 @@ exports.usersCartItems = catchAsyncErrors(async (req, res, next) => {
     path: "user",
     select: "name email -_id",
   });
-  // console.log(cart,"********* Cart");
-  // const CartItems = await Cart.aggregate([
-  //   {
-  //     $match: { user: req.user._id },
-  //   },
-  //   {
-  //     $unwind: "$cartItems",
-  //   },
-  //   {
-  //     $project: {
-  //       product: "$cartItems.product",
-  //       quantity: "$cartItems.quantity",
-  //       price: "$cartItems.price",
-  //     },
-  //   },
-  //   {
-  //     $lookup: {
-  //       from: Product.collection.name,
-  //       localField: "product",
-  //       foreignField: "_id",
-  //       as: "items",
-  //     },
-  //   },
-  //   {
-  //     $project: {
-  //       product: 1,
-  //       quantity: 1,
-  //       price: 1,
-  //       product: {
-  //         $arrayElemAt: ["$items", 0],
-  //       },
-  //     },
-  //   },
-  // ])
-
+  
   let newArray = cart.map((item) => item.cartItems);
   let Items = newArray[0].map((item) => item);
 
@@ -160,12 +127,13 @@ exports.usersCartItems = catchAsyncErrors(async (req, res, next) => {
 
 //Remove Cart items
 exports.removeCartItem = catchAsyncErrors(async (req, res, next) => {
+  console.log(req.params.id,"======req.params.id");
   const cart = await Cart.findOne({ user: req.user._id });
 
   const itemExist = cart.cartItems.find(
-    (i) => i.product.toString() == req.params.id
+    (i) => i.product.toString() === req.params.id
   );
-
+console.log(itemExist,"==itemExist");
   if (!itemExist) {
     return next(new ErrorHander("Item not found with this Id", 404));
   }
@@ -180,3 +148,87 @@ exports.removeCartItem = catchAsyncErrors(async (req, res, next) => {
     message: `Cart item is Deleted Successfully`,
   });
 });
+
+
+// Add Shipping Details
+exports.addShippingDetails = catchAsyncErrors(async (req, res, next) => {
+  console.log(req.body.shippingData,"=============== shipping datails");
+  const user = await User.findOne({ email: req.user.email });
+  if(user.shippingInfo.length === 0){
+    
+    await User.updateOne(
+      { _id: req.user._id },
+      { $set: { shippingInfo: req.body.shippingData} }
+    );
+
+
+    const user = await User.findOne({ email: req.user.email });
+    if (!user) {
+      return next(new ErrorHander("User Not Exist", 404));
+    }
+    let shippingInfo = user.shippingInfo.map((item)=> item )
+    res.status(200).json({
+      success : true,
+      message : "Shipping Details added",
+      shippingInfo
+    })
+
+    
+
+  } else {
+    await User.updateOne(
+      { _id: req.user._id },
+      { $push: { shippingInfo: req.body.shippingData } }
+    );
+
+    const user = await User.findOne({ email: req.user.email });
+    if (!user) {
+      return next(new ErrorHander("User Not Exist", 404));
+    }
+    let shippingInfo = user.shippingInfo.map((item)=> item )
+    res.status(200).json({
+      success : true,
+      message : "New Shipping Details Added",
+      shippingInfo
+    })
+
+  }
+  
+})
+
+//Remove shipping Deatails
+exports.removeShippingAddress = catchAsyncErrors(async (req, res, next) => {
+  const user = await User.findOne({ _id: req.user._id });
+
+  const itemExist = user.shippingInfo.find(
+    (i) => i._id.toString() == req.params.id
+  );
+console.log(itemExist,"======= itemExist");
+  if (!itemExist) {
+    return next(new ErrorHander("Item not found with this Id", 404));
+  }
+
+  await User.findOneAndUpdate(
+    { _id: req.user._id },
+    { $pull: { shippingInfo: { _id: req.params.id } } }
+  );
+
+  res.status(200).json({
+    success: true,
+    message: `Shipping Address is Deleted Successfully`,
+  });
+});
+
+//Get Shipping Item 
+exports.getShippingInfo = catchAsyncErrors(async (req, res, next) => {
+  const user = await User.findOne({ email: req.user.email });
+    if (!user) {
+      return next(new ErrorHander("User Not Exist", 404));
+    }
+    let shippingInfo = user.shippingInfo.map((item)=> item )
+    res.status(200).json({
+      success : true,
+      shippingInfo
+    })
+
+})

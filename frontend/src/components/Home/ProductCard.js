@@ -1,7 +1,7 @@
 import React from "react";
-import ReactStars from "react-rating-stars-component";
 import { Link } from "react-router-dom";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { Rating } from "@mui/material";
 
 
 
@@ -11,16 +11,21 @@ function ProductCard({ product }) {
 
  
 
-  const options = {
-    edit: false,
-    color: "rgba(20,20,20,0.1)",
-    activeColor: "tomato",
-    size: window.innerWidth < 600 ? 20 : 25,
-    value: product.ratings,
-    isHalf: true,
-  };
+  // const options = {
+  //   edit: false,
+  //   color: "rgba(20,20,20,0.1)",
+  //   activeColor: "tomato",
+  //   size: window.innerWidth < 600 ? 20 : 25,
+  //   value: product.ratings,
+  //   isHalf: true,
+  // };
 
- 
+  const options = {
+    size:'small',
+    value:product.ratings,
+    readOnly: true,
+    precision: 0.5,
+  };
 
 
   return (
@@ -29,7 +34,7 @@ function ProductCard({ product }) {
       <img src={product.images[0].url} alt="" />
       <p>{product.name}</p>
       <div>
-        <ReactStars {...options} size="14"/> <span> ({product.numOfReviews} Reviews) </span>
+        <Rating {...options} size="14"/> <span className="productCardSpan"> ({product.numOfReviews} Reviews) </span>
       </div>
       <span>	&#8377; {product.price}</span>
 

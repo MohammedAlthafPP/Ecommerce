@@ -1,0 +1,43 @@
+.orderSuccess {
+    margin: auto;
+    text-align: center;
+    padding: 10vmax;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.orderSuccess > svg {
+    font-size: 7vmax;
+    color: var(--primary-color);
+}
+.orderSuccess > p {
+    font-size: 2vmax;
+}
+.orderSuccess > a {
+    background-color: rgb(51, 51, 51);
+    color: white;
+    text-decoration: none;
+    margin: 2vmax 0;
+    font: 400 1vmax var(--Roboto-font-family);
+    padding: 1vmax 4vmax;
+    cursor: pointer;
+    border: none;
+}
+
+@media screen and (max-width : 600px) {
+    .orderSuccess > a {
+        padding: 3vw 6vw;
+        font: 400 4vw var(--Roboto-font-family);
+        margin: 2vmax;
+    }
+    .orderSuccess > svg {
+        font-size: 20vw;
+    }
+    .orderSuccess > p {
+        margin: 2vmax;
+        font-size: 5vw;
+    }
+    
+}

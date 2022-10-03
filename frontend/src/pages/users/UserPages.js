@@ -9,6 +9,7 @@ import UpdateProfilePage from "./UpdateProfilePage";
 import UpdatePasswordPage from "./UpdatePasswordPage";
 import ForgotPasswordPage from "./ForgotPasswordPage";
 import ResetPasswordPage from "./ResetPasswordPage";
+import CreateShippingPage from "./CreateShippingPage.js";
 
 function UserPages() {
   return (
@@ -30,6 +31,10 @@ function UserPages() {
       
        <Route path="/password/forgot" element={<ForgotPasswordPage />} />
        <Route path="/password/reset/:token" element={<ResetPasswordPage />} />
+
+       <Route path="/shipping" element={<PrivateRoute />}>
+        <Route path="" element={<CreateShippingPage />} />
+      </Route>
 
     </Routes>
   );

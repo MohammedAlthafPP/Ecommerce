@@ -63,7 +63,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function Header() {
   const navigate = useNavigate();
   const [keyword, setKeyword] = useState("");
-  const { cartItems } = useSelector((state) => state.cart);
+  const { cartItems } = useSelector((state) => state.mycart);
 
   const searchSubmitHandler = (e) => {
     e.preventDefault();
@@ -142,7 +142,7 @@ export default function Header() {
       <MenuItem>
       
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={6} color="error">
+          <Badge badgeContent={cartItems && cartItems.length} color="error">
             <LocalMallIcon className="mobLocalMallIcon" />
           </Badge>
         </IconButton>
@@ -218,7 +218,7 @@ export default function Header() {
               aria-label="show 4 new mails"
               color="inherit"
             >
-              <Badge badgeContent={7} color="error">
+              <Badge badgeContent={cartItems && cartItems.length} color="error">
                 <LocalMallIcon className="LocalMallIcon"/>
               </Badge>
             </IconButton>

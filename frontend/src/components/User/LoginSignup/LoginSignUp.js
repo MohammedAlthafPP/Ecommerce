@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./LoginSignUp.css";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
@@ -20,6 +20,7 @@ function LoginSignUp() {
   const dispatch = useDispatch();
   const alert = useAlert();
   const navigate = useNavigate();
+  const location = useLocation();
 
 
   const { error, loading, isAuthenticated } = useSelector(
@@ -76,6 +77,8 @@ function LoginSignUp() {
       setUser({ ...user, [e.target.name]: e.target.value });
     }
   };
+
+  // const redirect = location.search ? location.search.split("=")[1] : "/products"
 
   useEffect(() => {
     if (error) {

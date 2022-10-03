@@ -45,7 +45,7 @@ function Profile() {
                 <p>{String(user.joinedOn).substr(0, 10)}</p>
               </div>
               <div>
-                <Link to="/user/orders">My Orders</Link>
+                <Link to="/order/orders">My Orders</Link>
                 <Link to="/user/password/update">Change Password</Link>
               </div>
             </div>

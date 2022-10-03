@@ -160,9 +160,9 @@
   align-items: center;
 }
 
-.productCard > div > span {
+.productCardSpan {
   margin: 0.5vmax;
-  font: 300 0.7vmax var(--Roboto-font-family);
+  font: 300 0.6vmax var(--Roboto-font-family);
 }
 
 .productCard > p {

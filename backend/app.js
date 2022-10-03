@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser");
 const cors = require ("cors")
 const bodyparser = require("body-parser");
 const fileUpload = require("express-fileupload")
+const dotenv = require('dotenv');
 
 app.use(
     cors({
@@ -13,7 +14,8 @@ app.use(
     })
 );
 
-
+//config 
+dotenv.config({path:"backend/config/.env"})
 
 const erroeMiddleware = require("./middleware/error");
 
@@ -28,11 +30,13 @@ const product = require("./routes/productRoute");
 const user = require("./routes/userRoute");
 const order = require("./routes/orderRoute");
 const cart = require("./routes/cartRoute");
+const payment = require("./routes/paymentRoute");
 
 app.use("/api/v1", product);
 app.use("/api/v1", user);
 app.use("/api/v1", order);
 app.use("/api/v1", cart);
+app.use("/api/v1", payment);
 
 //MiddlewRware for Errors
 app.use(erroeMiddleware);

@@ -15,7 +15,7 @@ exports.newOrder = catchAsyncErrors(async (req, res, next) => {
     shippingPrice,
     totalPrice,
   } = req.body;
-  console.log(req.body.orderItems, "=========order items");
+
   const order = await Order.create({
     shippingInfo,
     orderItems,
@@ -36,16 +36,17 @@ exports.newOrder = catchAsyncErrors(async (req, res, next) => {
 
 //Get Logged in user Orders (MY Orders)
 exports.myOrders = catchAsyncErrors(async (req, res, next) => {
-  const order = await Order.find({ user: req.user._id });
+  console.log(req.user,"###########################  req.user._id");
+  const orders = await Order.find({ user: req.user._id });
   const orderCount = await Order.find({ user: req.user._id }).count();
 
-  if (!order) {
+  if (!orders) {
     return next(new ErrorHander("My Order is Empty", 404));
   }
 
   res.status(200).json({
     success: true,
-    order,
+    orders,
     orderCount,
   });
 });

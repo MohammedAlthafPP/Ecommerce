@@ -15,7 +15,7 @@ import {logout} from "../../../redux/actions/userAction"
 
 
 function UserOptions({ user }) {
-  const { cartItems } = useSelector((state) => state.cart);
+  const { cartItems } = useSelector((state) => state.mycart);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ function UserOptions({ user }) {
 
   const options = [
     { icon: <ListAltIcon />, name: "Orders", func: order },
-    // { icon: <ShoppingCartIcon style={{color:cartItems.length > 0 ? "tomato" : "unset" }} />, name: `Cart(${cartItems.length})`, func: cart },
+     { icon: <ShoppingCartIcon style={{color:cartItems && cartItems.length > 0 ? "tomato" : "unset" }} />, name: `Cart(${cartItems && cartItems.length})`, func: cart },
     { icon: <PersonIcon />, name: "Profile", func: account },
     { icon: <ExitToAppIcon />, name: "Logout", func: logoutUser },
   ];
@@ -40,7 +40,7 @@ function UserOptions({ user }) {
     navigate("/admin/dashboard");
   }
   function order() {
-    navigate("/user/order");
+    navigate("/order/orders");
   }
   function cart() {
     navigate("/cart");

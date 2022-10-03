@@ -49,9 +49,9 @@
     padding: 1vmax 0;
 }
 
-.detailsBlock-2 > span {
-    color: rgba(54,54,54,0.582);
-    font: 200 0.6vmax cursive;
+.detailsBlock-2-span {
+    font: 200 0.8vmax cursive;
+    color: rgba(0, 0, 0, 0.699);
 }
 
 .detailsBlock-3 > h1 {
@@ -151,6 +151,24 @@
     transform: scale(1.1);
 }
 
+/* ===== Dialog Start ======= */
+.submitDialog{
+    display: flex;
+    flex-direction: column;
+
+}
+.sumbitDialogTextArea {
+    border: 1px solid rgba(0, 0, 0, 0.085);
+    margin: 1vmax;
+    outline: none;
+    padding: 1rem;
+    font: 300 1rem var(--Roboto-font-family);
+}
+
+
+
+/* ===== Dialog END ======= */
+
 .css-1f8sh1y {
     width: 20vw !important;
     position: relative;
@@ -209,7 +227,7 @@
     font: 600 0.9vmax var(--Roboto-font-family);
 
 }
-.reviewCard > span {
+.reviewCardCommentt{
     color: rgba(0, 0, 0, 0.445);
     font: 300 0.8vmax cursive;
 }
@@ -281,10 +299,7 @@
     .detailsBlock-2 {
         justify-content: center;
     }
-    .detailsBlock-2 > span {
-        font-size: 1.5vmax;
-
-    }
+    
     .detailsBlock-3 > h1 {
         font: 700 3vmax 'Franklin Gothic Medium';
         text-align: center;
@@ -332,6 +347,12 @@
     }
     .css-1f8sh1y {
         width: 25vw !important;
+    }
+    .reviewCard > p {
+        font: 600 3vw var(--Roboto-font-family);
+    }
+    .reviewCardCommentt {
+        font: 300 2vw cursive;
     }
 
 

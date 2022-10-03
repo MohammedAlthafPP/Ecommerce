@@ -7,6 +7,15 @@ import {
   MY_CART_SUCCESS,
   MY_CART_FAIL,
   MY_CART_REQUEST,
+  DELETE_CART_REQUEST,
+  DELETE_CART_SUCCESS,
+  DELETE_CART_FAIL,
+  ADD_SHIPPING_REQUEST,
+  ADD_SHIPPING_SUCCESS,
+  ADD_SHIPPING_FAIL,
+  GET_SHIPPING_REQUEST,
+  GET_SHIPPING_SUCCESS,
+  GET_SHIPPING_FAIL,
   CLEAR_ERRORS,
 } from "../../constants/cartConstants";
 
@@ -60,8 +69,67 @@ export const myCartItems = () => async (dispatch) => {
   }
 };
 
+// Delete Order
+export const deleteCartItem = (id) => async (dispatch) => {
+  console.log(id,"=== action remove cart");
+  try {
+    dispatch({ type:   DELETE_CART_REQUEST, });
 
+    const { data } = await axios.delete(`/cart/${id}`);
 
+    dispatch({ type: DELETE_CART_SUCCESS,
+       payload: data,
+     
+     
+    
+    });
+  } catch (error) {
+    dispatch({
+      type: DELETE_CART_FAIL,
+      payload: error.response.data,
+    });
+  }
+};
+
+// Save Shipping Details
+export const savaShippingInfo = (shippingData) => async (dispatch) => {
+  console.log(shippingData,"======= shippingData");
+
+  try {
+    dispatch({ type: ADD_SHIPPING_REQUEST });
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const { data } = await axios.post(`/shipping/new`, { shippingData }, config);
+
+    dispatch({ type: ADD_SHIPPING_SUCCESS, payload: data.shippingInfo });
+  } catch (error) {
+    dispatch({
+      type: ADD_SHIPPING_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// GET Shipping Details 
+export const getShippingInfo = () => async (dispatch) => {
+  try {
+    dispatch({ type: GET_SHIPPING_REQUEST });
+
+    const { data } = await axios.get(`/shipping`);
+
+    dispatch({ type: GET_SHIPPING_SUCCESS, payload: data.shippingInfo });
+    
+  } catch (error) {
+    dispatch({
+      type: GET_SHIPPING_FAIL,
+      payload: error.response.data,
+    });
+  }
+};
 
 // Clearing Errors
 export const clearErrors = () => async (dispatch) => {

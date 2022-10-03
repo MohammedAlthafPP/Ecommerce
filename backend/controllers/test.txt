@@ -12,3 +12,67 @@
 
      console.log(cart[0].cartItems[0].product, "=====Cart Items");
     cart[0].cartItems.map((i) => console.log(i.product))
+
+
+
+    // get cartItems 
+    exports.usersCartItems = catchAsyncErrors(async (req, res, next) => {
+  const cart = await Cart.find({ user: req.user.id }).populate({
+    path: "user",
+    select: "name email -_id",
+  });
+  // console.log(cart,"********* Cart");
+  // const CartItems = await Cart.aggregate([
+  //   {
+  //     $match: { user: req.user._id },
+  //   },
+  //   {
+  //     $unwind: "$cartItems",
+  //   },
+  //   {
+  //     $project: {
+  //       product: "$cartItems.product",
+  //       quantity: "$cartItems.quantity",
+  //       price: "$cartItems.price",
+  //     },
+  //   },
+  //   {
+  //     $lookup: {
+  //       from: Product.collection.name,
+  //       localField: "product",
+  //       foreignField: "_id",
+  //       as: "items",
+  //     },
+  //   },
+  //   {
+  //     $project: {
+  //       product: 1,
+  //       quantity: 1,
+  //       price: 1,
+  //       product: {
+  //         $arrayElemAt: ["$items", 0],
+  //       },
+  //     },
+  //   },
+  // ])
+
+  let newArray = cart.map((item) => item.cartItems);
+  let Items = newArray[0].map((item) => item);
+
+  let cartItems = cart === undefined ? [] : Items;
+  console.log(cart,"=================================== cart");
+  console.log(cartItems,"===================================");
+  // console.log(cartItems,"================ newCart");
+
+  if (!cart) {
+    return next(new ErrorHander("Cart is Empty", 404));
+  }
+  if (!cartItems) {
+    return next(new ErrorHander("Cart is Empty", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    cartItems,
+  });
+});
