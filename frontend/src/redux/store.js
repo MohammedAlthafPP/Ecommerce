@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { cartReducer, deleteCartItemReducer, myCartReducer, saveShippingReducer, shippingDetails } from "./reducers/cartReducer";
 import { myOrdersReducer, newOrderReducer, orderDetailsReducer } from "./reducers/orderReducer";
-import { newReviewReducer, productDetailsReducer,productReducer,} from "./reducers/productReducers";
+import { newProductReducer, newReviewReducer, productDetailsReducer,productReducer,} from "./reducers/productReducers";
 import { forgotPasswordReducer, profileReducer, userReducer } from "./reducers/userReducer";
 
 // let initialState = {
@@ -31,6 +31,7 @@ const Store = configureStore({
     myOrders : myOrdersReducer,
     orderDetails : orderDetailsReducer,
     newReview : newReviewReducer,
+    newProduct : newProductReducer,
     
     
   },

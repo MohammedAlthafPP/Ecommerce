@@ -12,6 +12,13 @@ import {
   NEW_REVIEW_SUCCESS,
   NEW_REVIEW_RESET,
   NEW_REVIEW_FAIL,
+  ADMIN_PRODUCTS_REQUEST,
+  ADMIN_PRODUCTS_SUCCESS,
+  ADMIN_PRODUCTS_FAIL,
+  NEW_PRODUCT_REQUEST,
+  NEW_PRODUCT_SUCCESS,
+  NEW_PRODUCT_RESET,
+  NEW_PRODUCT_FAIL,
   CLEAR_ERRORS,
 } from "../../constants/productConstants";
 
@@ -45,6 +52,52 @@ export const getProducts = (
   }
 };
 
+// Get All Products for --Admin 
+export const getAdminProducts = () => async (dispatch) => {
+  try {
+    dispatch({type: ADMIN_PRODUCTS_REQUEST});
+
+    const {data} = await axios.get(`/admin/products`);
+   
+    dispatch({
+      type: ADMIN_PRODUCTS_SUCCESS,
+      payload : data.products,
+    })
+    
+  } catch (error) {
+    dispatch({
+      type:ADMIN_PRODUCTS_FAIL,
+      payload : error.response.data,
+    })
+    
+  }
+
+}
+
+//Create Product
+export const CreateProduct = (productData) => async (dispatch) => {
+  try {
+    dispatch({ type: NEW_PRODUCT_REQUEST });
+
+    const config = { headers: { "Content-Type": "multipart/form-data" } };
+
+    const { data } = await axios.post(`/admin/product/new`,productData,config);
+
+    dispatch({
+      type: NEW_PRODUCT_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: NEW_PRODUCT_FAIL,
+      payload: error.response.data,
+    });
+  }
+};
+
+
+
+// Get product Details
 export const getProductDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCTS_DETAILS_REQUEST });

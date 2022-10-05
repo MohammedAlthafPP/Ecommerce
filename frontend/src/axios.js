@@ -4,7 +4,7 @@ import { BASE_URL } from "./constants/constants";
 const instance = axios.create({
   baseURL: BASE_URL,
    withCredentials: true,
-   timeout: 3000,
+  //  timeout: 20000,
 });
 
 export default instance;

@@ -47,7 +47,7 @@ function MyOrders() {
         }
     },
 
-    ]
+    ];
     const rows = []
 
         orders && orders.forEach((item,index) => {

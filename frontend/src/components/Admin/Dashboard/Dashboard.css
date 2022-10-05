@@ -1,0 +1,97 @@
+.dashboard {
+    width: 100vw;
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    position: absolute;
+}
+.dashboardContainer {
+    border-left: 1px solid rgba(0, 0, 0, 0.13);
+    background-color: rgb(255, 255, 255);
+    padding: 3rem 0;
+}
+
+.dashboardContainer > h1{
+    color: rgba(0, 0, 0, 0.733);
+    font: 300 2rem var(--Roboto-font-family);
+    margin: auto;
+    width: 50%;
+    padding: 1.5rem;
+    text-align: center;
+
+
+}
+
+.dashboardSummary {
+    margin: 2rem 0;
+}
+
+.dashboardSummary > div {
+    display: flex;
+    justify-content: center;
+    background-color: white;
+}
+.dashboardSummary > div > p{
+    background-color: rgba(70, 117, 218, 0.932);
+    color: white;
+    width: 100%;
+    margin: 0 2rem;
+    padding: 1.5rem;
+    font: 300 1.3rem var(--Roboto-font-family);
+    text-align: center;
+}
+.dashboardSummarybox2 > a {
+    color: rgb(0, 0, 0);
+    font: 300 1.5rem var(--Roboto-font-family);
+    background-color: rgb(255, 233, 176);
+    text-align: center;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-decoration: none;
+    border-radius: 100%;
+    width: 10vmax;
+    height: 10vmax;
+    margin: 2rem;
+
+}
+
+.dashboardSummarybox2 > a:first-child {
+    background-color: var(--primary-color);
+    color:rgb(255, 255, 255);
+}
+.dashboardSummarybox2 > a:last-child {
+    background-color: rgb(51, 51, 51);
+    color:rgb(255, 255, 255);
+}
+.linechart {
+    width: 80%;
+    margin: auto;
+}
+.doughnutChart {
+    width: 30vmax;
+    margin: auto;
+}
+
+@media screen and (max-width: 600px) {
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboardContainer {
+        border-left: none;
+
+    }
+    .dashboardSummary > div > p{
+        margin: 0;
+    }
+    .dashboardSummarybox2 > a {
+        padding: 0.5rem;
+        margin: 1rem;
+        font: 300 0.9rem var(--Roboto-font-family);
+
+    }
+    
+}

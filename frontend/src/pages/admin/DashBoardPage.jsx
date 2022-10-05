@@ -1,12 +1,13 @@
 import React, { Fragment } from 'react'
+import Dashboard from '../../components/Admin/Dashboard/Dashboard'
 import Navbar from '../../components/Admin/Navbar/Navbar'
 
-function DashBoard() {
+function DashBoardPage() {
   return (
     <Fragment>
-        <Navbar/>
+       <Dashboard/>
     </Fragment>
   )
 }
 
-export default DashBoard
+export default DashBoardPage

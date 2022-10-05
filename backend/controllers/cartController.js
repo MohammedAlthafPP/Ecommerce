@@ -6,7 +6,6 @@ const Product = require("../models/productModels");
 
 // Create Cart
 exports.addToCart = catchAsyncErrors(async (req, res, next) => {
-  console.log(req.body.cartItems, "============ Body");
   const isCartExist = await Cart.findOne({ userEmail: req.user.email });
 
   if (isCartExist) {
@@ -108,8 +107,8 @@ exports.usersCartItems = catchAsyncErrors(async (req, res, next) => {
   let Items = newArray[0].map((item) => item);
 
   let cartItems = cart === undefined ? [] : Items;
-  console.log(cart,"=================================== cart");
-  console.log(cartItems,"===================================");
+  // console.log(cart,"=================================== cart");
+  // console.log(cartItems,"===================================");
   // console.log(cartItems,"================ newCart");
 
   if (!cart) {
@@ -127,13 +126,12 @@ exports.usersCartItems = catchAsyncErrors(async (req, res, next) => {
 
 //Remove Cart items
 exports.removeCartItem = catchAsyncErrors(async (req, res, next) => {
-  console.log(req.params.id,"======req.params.id");
   const cart = await Cart.findOne({ user: req.user._id });
 
   const itemExist = cart.cartItems.find(
     (i) => i.product.toString() === req.params.id
   );
-console.log(itemExist,"==itemExist");
+
   if (!itemExist) {
     return next(new ErrorHander("Item not found with this Id", 404));
   }
@@ -152,7 +150,6 @@ console.log(itemExist,"==itemExist");
 
 // Add Shipping Details
 exports.addShippingDetails = catchAsyncErrors(async (req, res, next) => {
-  console.log(req.body.shippingData,"=============== shipping datails");
   const user = await User.findOne({ email: req.user.email });
   if(user.shippingInfo.length === 0){
     
@@ -203,7 +200,7 @@ exports.removeShippingAddress = catchAsyncErrors(async (req, res, next) => {
   const itemExist = user.shippingInfo.find(
     (i) => i._id.toString() == req.params.id
   );
-console.log(itemExist,"======= itemExist");
+
   if (!itemExist) {
     return next(new ErrorHander("Item not found with this Id", 404));
   }

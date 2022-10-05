@@ -36,7 +36,6 @@ exports.newOrder = catchAsyncErrors(async (req, res, next) => {
 
 //Get Logged in user Orders (MY Orders)
 exports.myOrders = catchAsyncErrors(async (req, res, next) => {
-  console.log(req.user,"###########################  req.user._id");
   const orders = await Order.find({ user: req.user._id });
   const orderCount = await Order.find({ user: req.user._id }).count();
 
