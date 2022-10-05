@@ -203,7 +203,7 @@ function ProductDetails() {
           {product.reviews && product.reviews[0] ? (
             <div className="reviews">
               {product.reviews &&
-                product.reviews.map((review) => <ReviewCard review={review} />)}
+                product.reviews.map((review,index) => <ReviewCard review={review} key={index} />)}
             </div>
           ) : (
             <p className="noReviews">No Reviews Yet</p>

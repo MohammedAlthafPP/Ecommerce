@@ -16,6 +16,8 @@ import {
   GET_SHIPPING_SUCCESS,
   GET_SHIPPING_FAIL,
   CLEAR_ERRORS,
+  DELETE_CART_RESET,
+  ADD_TO_CART_RESET,
 } from "../../constants/cartConstants";
 
 /* Cart Mongodb Storing start*/
@@ -30,7 +32,13 @@ export const cartReducer = (state = {}, action) => {
     case ADD_TO_CART_SUCCESS:
       return {
         loading: false,
-        cartItems: action.payload,
+        success: action.payload.success,
+        cartItems: action.payload.cartItems,
+      };
+      case ADD_TO_CART_RESET:
+      return {
+        ...state,
+        success:false,
       };
 
     case ADD_TO_CART_FAIL:
@@ -38,6 +46,7 @@ export const cartReducer = (state = {}, action) => {
         loading: false,
         error: action.payload,
       };
+
     case CLEAR_ERRORS:
       return {
         ...state,
@@ -95,6 +104,12 @@ export const deleteCartItemReducer = (state = {}, action) => {
         loading: false,
         isDeleted: action.payload.success,
         message: action.payload.message,
+      };
+    case DELETE_CART_RESET:
+      return {
+        ...state,
+        isDeleted: false,
+        message: false,
       };
 
     case DELETE_CART_FAIL:

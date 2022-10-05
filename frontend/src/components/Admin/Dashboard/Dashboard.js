@@ -17,6 +17,7 @@ import {
 } from "chart.js";
 import { useDispatch, useSelector } from "react-redux";
 import { getAdminProducts } from "../../../redux/actions/productAction.js";
+import { getAllOrders } from "../../../redux/actions/orderAction.js";
 ChartJS.register(
   Title,
   Tooltip,
@@ -32,6 +33,7 @@ function Dashboard() {
   const dispatch = useDispatch();
 
   const { products} = useSelector((state)=> state.products);
+  const { orders} = useSelector((state)=> state.allOrders);
 
   let outOfStock = 0;
   products && products.forEach((item) => {
@@ -44,6 +46,7 @@ function Dashboard() {
 
   useEffect(() => {
     dispatch(getAdminProducts())
+    dispatch(getAllOrders())
   }, [dispatch])
   
  
@@ -93,7 +96,7 @@ function Dashboard() {
             </Link>
             <Link to="/admin/orders">
               <p>ODERS</p>
-              <p>50</p>
+              <p>{orders && orders.length}</p>
             </Link>
             <Link to="/admin/users">
               <p>USERS</p>

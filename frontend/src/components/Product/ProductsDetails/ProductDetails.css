@@ -220,6 +220,8 @@
 }
 .reviewCard > img {
     width: 5vmax;
+    height: 5vmax;
+    border-radius: 100%;
 
 }
 .reviewCard > p {

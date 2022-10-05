@@ -42,7 +42,7 @@ export const addItemsToCart = (id, quantity) => async (dispatch) => {
     };
     const { data } = await axios.post(`/cart/new`, { cartItems }, config);
 
-    dispatch({ type: ADD_TO_CART_SUCCESS, payload: data.cartItems });
+    dispatch({ type: ADD_TO_CART_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: ADD_TO_CART_FAIL,

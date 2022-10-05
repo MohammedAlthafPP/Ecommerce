@@ -11,6 +11,7 @@ import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 import Typography from "@mui/material/Typography";
 import { Link, useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
+import { ADD_TO_CART_RESET, DELETE_CART_RESET } from "../../../constants/cartConstants";
 
 function Cart() {
   // const cartItems = [
@@ -38,6 +39,7 @@ function Cart() {
 
   const { isAuthenticated } = useSelector((state) => state.user);
   const { cartItems, loading } = useSelector((state) => state.mycart);
+  const { success } = useSelector((state) => state.cart);
   const { message, isDeleted, error } = useSelector(
     (state) => state.deleteCart
   );
@@ -49,16 +51,25 @@ function Cart() {
       alert.error(error.message);
       dispatch(clearErrors());
     }
-
-    dispatch(myCartItems());
-  }, [dispatch, error, alert]);
-
-  useEffect(() => {
-    if (message) {
+    if (isDeleted) {
       alert.success(message);
+      dispatch({type:DELETE_CART_RESET})
     }
+    if (success) {
+      dispatch({type:ADD_TO_CART_RESET})
+    }
+
     dispatch(myCartItems());
-  }, [message, isDeleted, dispatch]);
+  }, [dispatch,success, error, alert,message, isDeleted]);
+
+  // useEffect(() => {
+  //   if (message) {
+  //     alert.success(message);
+  //     navigate('/cart')
+  //     dispatch({type:DELETE_CART_RESET})
+  //   }
+  //   dispatch(myCartItems());
+  // }, [message, isDeleted, dispatch]);
 
   //   function doSomething(qty) {
   //      let  globalQty = qty;
@@ -102,15 +113,15 @@ function Cart() {
     if (stock <= quantity) return;
     let newQty = quantity + 1;
     dispatch(addItemsToCart(id, newQty));
-    dispatch(myCartItems());
+    
   };
 
   const decreaseQuantity = (id, quantity) => {
     if (1 >= quantity) return;
     let newQty = quantity - 1;
-
     dispatch(addItemsToCart(id, newQty));
-    dispatch(myCartItems());
+    
+    
   };
 
   const checkoutHandler = () => {

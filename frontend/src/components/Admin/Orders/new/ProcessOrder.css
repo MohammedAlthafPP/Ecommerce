@@ -1,0 +1,83 @@
+
+  .updateOrderForm {
+    margin: 5vmax 0;
+    padding: 3vmax;
+    background-color: white;
+   
+  }
+  .updateOrderForm > h1 {
+    color: rgba(0, 0, 0, 0.733);
+    font: 300 2rem var(--Roboto-font-family);
+    text-align: center;
+}
+
+  .updateOrderForm > div {
+    display: flex;
+    width: 100%;
+    align-items: center;
+  }
+
+  .updateOrderForm > div > select {
+    padding: 1vmax 4vmax;
+    padding-right: 1vmax;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.267);
+    border-radius: 4px;
+    font: 300 0.9vmax cursive;
+    outline: none;
+    margin: 2rem 0;
+  }
+  
+ 
+  .updateOrderForm > div > svg {
+    position: absolute;
+    transform: translateX(1vmax);
+    font-size: 1.6vmax;
+    color: rgba(0, 0, 0, 0.623);
+  }
+  .confirmOrderPage > div {
+    border-left: 1px solid rgba(0, 0, 0, 0.267);
+  }
+
+  @media screen and (max-width: 1024px) {
+   
+  
+  }
+  @media screen and (max-width: 768px) {
+    
+    .updateOrderForm > div > select{
+      padding: 1.5vmax 5vmax;
+      font: 300 1.7vmax cursive;
+    }
+    
+    .updateOrderForm > div > svg {
+      font-size: 2.3vmax;
+    }
+   
+  
+  }
+  
+  @media screen and (max-width: 600px) {
+    .updateOrderForm {
+      padding: 5vmax;
+    }
+    
+
+    .updateOrderForm > div > select {
+      padding: 2.5vmax 5vmax;
+      font: 300 1.7vmax cursive;
+    }
+  
+    .updateOrderForm > div > svg {
+      font-size: 2.8vmax;
+    }
+    .loginForm > a {
+      font: 500 2.5vmax "Gill Sans";
+    }
+    .confirmOrderPage > div {
+      border-left: none;
+    }
+  
+  }
+  
