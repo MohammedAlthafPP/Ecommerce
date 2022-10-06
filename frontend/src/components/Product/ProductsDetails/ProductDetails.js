@@ -7,7 +7,7 @@ import {
   getProductDetails,
   newReview,
 } from "../../../redux/actions/productAction";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ReviewCard from "./ReviewCard.js";
 import Loader from "../../layout/Loader/Loader";
 import { useAlert } from "react-alert";
@@ -27,6 +27,7 @@ function ProductDetails() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const alert = useAlert();
+  const navigate = useNavigate();
 
   const { isAuthenticated } = useSelector((state) => state.user);
   const { message } = useSelector((state) => state.cart);
@@ -48,9 +49,15 @@ function ProductDetails() {
       alert.success("Review Submited Successfully");
       dispatch({type: NEW_REVIEW_RESET})
     }
+    if(id.length === 24){
+      dispatch(getProductDetails(id));
+    } else {
+      navigate(`/404`)
+      
+    }
 
-    dispatch(getProductDetails(id));
-  }, [dispatch, id, error, alert,reviewError,success]);
+    
+  }, [dispatch, id, error, alert,reviewError,success,navigate]);
 
   const options = {
     size: "large",

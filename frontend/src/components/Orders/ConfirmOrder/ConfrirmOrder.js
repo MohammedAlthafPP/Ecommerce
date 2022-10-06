@@ -14,14 +14,13 @@ function ConfrirmOrder() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
   const { cartItems, loading } = useSelector((state) => state.mycart);
   const { shippingInfo } = useSelector((state) => state.shippingDetails);
-  console.log(shippingInfo, "===========shippingInfo");
-  console.log(user && user.name,"=====user");
+
   function returnLastElement(shippingInfo) {
     return shippingInfo && shippingInfo.at(-1);
   }
 
   const value = returnLastElement(shippingInfo);
-  console.log(value, "======== VAlue");
+
 
 
   const subtotal = cartItems && cartItems.reduce((acc,item) => acc + item.quantity * item.price,0)
@@ -34,7 +33,7 @@ function ConfrirmOrder() {
 
   const address = `${value && value.address},${value && value.city},${value && value.state},${value && value.pincode},${value && value.country}`
 
-  console.log(subtotal,shippingCharges,tax,totalPrice);
+
 
   useEffect(() => {
     dispatch(getShippingInfo());

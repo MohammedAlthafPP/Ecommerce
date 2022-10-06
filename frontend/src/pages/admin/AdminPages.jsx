@@ -2,11 +2,15 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import AdminPrivateRoute from "../../components/Route/AdminPrivateRoute";
 import DashBoardPage from "./DashBoardPage";
-import ProductListpage from "./ProductListpage.js";
-import NewProductPage from "./NewProductPage.js";
-import UpdateProductPage from "./UpdateProductPage.js";
-import OrdersListPage from "./OrdersListPage.js";
-import ProcessOrderPage from "./ProcessOrderPage.js";
+import ProductListpage from "./ProductListpage";
+import NewProductPage from "./NewProductPage";
+import UpdateProductPage from "./UpdateProductPage";
+import OrdersListPage from "./OrdersListPage";
+import ProcessOrderPage from "./ProcessOrderPage";
+import UsersListPage from "./UsersListPage";
+import UpdateUserPage from "./UpdateUserPage";
+import ProductReviewsPage from "./ProductReviewsPage";
+import ErrorPage from "../../components/layout/ErrorPage/ErrorPage";
 
 function AdminPages() {
   return (
@@ -17,6 +21,10 @@ function AdminPages() {
       <Route path="/product/:id" element={<UpdateProductPage />} />
       <Route path="/orders" element={<OrdersListPage />} />
       <Route path="/order/:id" element={<ProcessOrderPage />} />
+      <Route path="/users" element={<UsersListPage />} />
+      <Route path="/user/:id" element={<UpdateUserPage />} />
+      <Route path="/reviews" element={<ProductReviewsPage />} />
+      <Route path="*" element={<ErrorPage/>} />
 
       {/* <Route path="/dashboard" element={<AdminPrivateRoute isAdmin={true}/>}>
         <Route path="" element={<DashBoardPage />} />

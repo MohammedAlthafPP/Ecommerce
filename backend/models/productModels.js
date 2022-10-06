@@ -57,6 +57,11 @@ const prodctSchema = mongoose.Schema({
             required:true,
             default: null
         },
+        avatar:{
+            type:String,
+            required:true,
+            default: null
+        },
         rating:{
             type:Number,
             required:true,

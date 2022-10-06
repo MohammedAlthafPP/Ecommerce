@@ -29,7 +29,7 @@ function Shipping() {
     
       const value = returnLastElement(shippingInfo);
   
-    const [address, setAddress] = useState(`${value &&  value.address}`)
+    const [address, setAddress] = useState(value &&  value.address)
     const [city, setCity] = useState(value && value.city)
     const [state, setState] = useState(value && value.state)
     const [country, setCountry] = useState(value && value.country)

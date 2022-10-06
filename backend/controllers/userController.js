@@ -193,7 +193,7 @@ exports.updateProfile = catchAsyncError(async (req, res, next) => {
 //console.log(req.body.avatar,"==========req.body.avatar[0].public_id");
   if (req.body.avatar !== 'undefined' && req.body.avatar) {
     const user = await User.findById(req.user.id);
-    console.log(user.avatar[0].public_id,"======public_id");
+   
     const imageId = user.avatar[0].public_id;
     await cloudinary.v2.uploader.destroy(imageId);
 
@@ -255,15 +255,15 @@ exports.getSingleUserDetails = catchAsyncError(async (req, res, next) => {
 
 //Update User Role  ---Admin
 exports.updateUserRole = catchAsyncError(async (req, res, next) => {
+  console.log(req.body,"=======");
   const newUserData = {
     name: req.body.name,
     email: req.body.email,
     role: req.body.role,
   };
 
-  // Add Cloudinary Later
 
-  const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+  const user = await User.findByIdAndUpdate(req.params.id, newUserData, {
     new: true,
     runValidators: true,
     useFindAndModify: false,
@@ -279,7 +279,10 @@ exports.updateUserRole = catchAsyncError(async (req, res, next) => {
 exports.deleteUser = catchAsyncError(async (req, res, next) => {
   const user = await User.findById(req.params.id);
 
-  //Remove Cloudinary
+  //Remove from Cloudinary
+  const imageId = user.avatar[0].public_id;
+  await cloudinary.v2.uploader.destroy(imageId)
+
 
   if (!user) {
     return next(

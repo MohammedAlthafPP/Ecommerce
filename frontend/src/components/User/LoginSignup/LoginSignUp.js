@@ -14,6 +14,7 @@ import {
 } from "../../../redux/actions/userAction";
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
+import profile from "../../../images/Profile.png"
 
 
 function LoginSignUp() {
@@ -42,9 +43,9 @@ function LoginSignUp() {
   });
 
   const { name, email, phone, password } = user;
-  const [avatar, setAvatar] = useState("");
+  const [avatar, setAvatar] = useState("https://res.cloudinary.com/althaf-ecommerce/image/upload/v1661379244/avatars/eulivilfagoufudqjc9q.png");
   const [avatarPreview, setAvatarPreview] = useState("/Profile.png");
-  // "https://www.iconfinder.com/icons/4043232/avatar_batman_comics_hero_icon"
+  
   const loginSubmit = (e) => {
     e.preventDefault();
     dispatch(login(loginEmail, loginPassword));

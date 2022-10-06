@@ -18,6 +18,8 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { getAdminProducts } from "../../../redux/actions/productAction.js";
 import { getAllOrders } from "../../../redux/actions/orderAction.js";
+import { getAllUsers } from "../../../redux/actions/userAction.js";
+
 ChartJS.register(
   Title,
   Tooltip,
@@ -34,6 +36,7 @@ function Dashboard() {
 
   const { products} = useSelector((state)=> state.products);
   const { orders} = useSelector((state)=> state.allOrders);
+  const {users} = useSelector((state)=> state.allUsers);
 
   let outOfStock = 0;
   products && products.forEach((item) => {
@@ -47,9 +50,15 @@ function Dashboard() {
   useEffect(() => {
     dispatch(getAdminProducts())
     dispatch(getAllOrders())
-  }, [dispatch])
+    dispatch(getAllUsers())
+  }, [dispatch]);
+
+  let totalAmount=0;
+  orders && orders.forEach((item) => {
+    totalAmount += item.totalPrice
+  })
   
- 
+ console.log(totalAmount,"=====totalAmount");
 
   const lineState = {
     labels: ["Initial Amount", "Amount Earned"],
@@ -58,7 +67,7 @@ function Dashboard() {
         label: "TOTAL AMOUNT",
         backgroundColor: ["tomato"],
         hoverBackgroundColor: ["rgb(197, 72, 49)"],
-        data: [0, 4000],
+        data: [0, totalAmount],
       },
     ],
   };
@@ -85,7 +94,7 @@ function Dashboard() {
         <div className="dashboardSummary">
           <div>
             <p>
-              Total Amount <br /> ₹200
+              Total Amount <br /> ₹{totalAmount}
             </p>
           </div>
 
@@ -100,7 +109,7 @@ function Dashboard() {
             </Link>
             <Link to="/admin/users">
               <p>USERS</p>
-              <p>50</p>
+              <p>{users && users.length}</p>
             </Link>
           </div>
         </div>

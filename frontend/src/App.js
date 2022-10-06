@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 //import { BrowserRouter as Router, Route,Routes} from "react-router-dom";
 import "./App.css";
 import Loader from "./components/layout/Loader/Loader";
@@ -16,11 +16,16 @@ import { useSelector } from "react-redux";
 import Header from "./components/layout/Header/Header";
 import Footer from "./components/layout/Footer/Footer";
 import CartPage from "./pages/Product/CartPage";
-import { getShippingInfo, myCartItems, updateCart } from "./redux/actions/cartAction";
+import {
+  getShippingInfo,
+  myCartItems,
+  updateCart,
+} from "./redux/actions/cartAction";
 import axios from "./axios";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import PaymentPage from "./pages/Order/PaymentPage";
+import ErrorPage from "./components/layout/ErrorPage/ErrorPage";
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -43,6 +48,8 @@ function App() {
     store.dispatch(getShippingInfo());
   }, []);
 
+  // window.addEventListener("contextmenu",(e)=>e.preventDefault());
+
   return (
     <BrowserRouter>
       <Header />
@@ -59,6 +66,12 @@ function App() {
         <Route path="/sad" element={<Loader />} />
         <Route path="/product/:id" element={<ProductDeatilsPage />} />
         <Route path="/cart" element={<CartPage />} />
+        <Route path="*" element={<ErrorPage/>} />
+        <Route path="/404" element={<ErrorPage />} />
+        <Route path="*" element={<Navigate to="/404" replace />} />
+
+
+        {/* <Route component={window.location.pathname === '/process/payment' ? null : NotFound} /> */}
 
         {stripeApiKey && (
           <Route
@@ -70,7 +83,6 @@ function App() {
             }
           />
         )}
-        
       </Routes>
       <Footer />
     </BrowserRouter>

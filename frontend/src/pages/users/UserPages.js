@@ -10,6 +10,7 @@ import UpdatePasswordPage from "./UpdatePasswordPage";
 import ForgotPasswordPage from "./ForgotPasswordPage";
 import ResetPasswordPage from "./ResetPasswordPage";
 import CreateShippingPage from "./CreateShippingPage.js";
+import ErrorPage from "../../components/layout/ErrorPage/ErrorPage";
 
 function UserPages() {
   return (
@@ -35,6 +36,8 @@ function UserPages() {
        <Route path="/shipping" element={<PrivateRoute />}>
         <Route path="" element={<CreateShippingPage />} />
       </Route>
+
+      <Route path="*" element={<ErrorPage/>} />
 
     </Routes>
   );

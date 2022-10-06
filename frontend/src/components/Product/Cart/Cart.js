@@ -43,8 +43,7 @@ function Cart() {
   const { message, isDeleted, error } = useSelector(
     (state) => state.deleteCart
   );
-  console.log(cartItems);
-  console.log(cartItems && cartItems, "=====cartItems.length === 0 ");
+
 
   useEffect(() => {
     if (error) {
@@ -168,8 +167,8 @@ function Cart() {
               <p>Subtotal</p>
             </div>
             {cartItems &&
-              cartItems.map((item) => (
-                <div className="cartContainer">
+              cartItems.map((item,index) => (
+                <div className="cartContainer" key={index}>
                   <CartItemCard item={item} />
                   <div className="cartInput">
                     <button

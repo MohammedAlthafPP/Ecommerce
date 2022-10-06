@@ -7,7 +7,7 @@ import MetaData from "../../layout/MetaData"
 import "./OrdrDetails.css"
 import { Typography } from '@mui/material';
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useParams } from "react-router-dom";
 
 function OrderDetails() {
@@ -17,13 +17,20 @@ function OrderDetails() {
     const dispatch = useDispatch();
     const alert = useAlert();
     const { id } = useParams();
+    const navigate = useNavigate()
     useEffect(() => {
     if(error){
         alert.error(error.message);
         dispatch(clearErrors());
     }
-    dispatch(getOrderDetails(id))
-    }, [dispatch,error,alert,id])
+    if(id.length === 24){
+      dispatch(getOrderDetails(id))
+    }else {
+      navigate("/404")
+
+    }
+    
+    }, [dispatch,error,alert,id,navigate])
     
 
   return (
@@ -42,7 +49,7 @@ function OrderDetails() {
             <div className="orderDetailsContainerBox">
               <div>
                 <p>Name:</p>
-                <span>{order.user && order.user.name}</span>
+                <span>{order && order.user && order.user.name}</span>
               </div>
               <div>
                 <p>Phone:</p>
@@ -53,8 +60,8 @@ function OrderDetails() {
               <div>
                 <p>Address:</p>
                 <span>
-                  {order.shippingInfo &&
-                    `${order.shippingInfo.address}, ${order.shippingInfo.city}, ${order.shippingInfo.state}, ${order.shippingInfo.pinCode}, ${order.shippingInfo.country}`}
+                  {order && order.shippingInfo &&
+                    `${order.shippingInfo.address}, ${order.shippingInfo.city}, ${order.shippingInfo.state}, ${order.shippingInfo.pincode}, ${order.shippingInfo.country}`}
                 </span>
               </div>
             </div>
@@ -63,13 +70,13 @@ function OrderDetails() {
               <div>
                 <p
                   className={
-                    order.paymentInfo &&
+                   order && order.paymentInfo &&
                     order.paymentInfo.status === "succeeded"
                       ? "greenColor"
                       : "redColor"
                   }
                 >
-                  {order.paymentInfo &&
+                  {order && order.paymentInfo &&
                   order.paymentInfo.status === "succeeded"
                     ? "PAID"
                     : "NOT PAID"}
@@ -78,7 +85,7 @@ function OrderDetails() {
 
               <div>
                 <p>Amount:</p>
-                <span>₹{order.totalPrice && order.totalPrice}</span>
+                <span>₹{order && order.totalPrice && order.totalPrice}</span>
               </div>
             </div>
 
@@ -87,12 +94,12 @@ function OrderDetails() {
               <div>
                 <p
                   className={
-                    order.orderStatus && order.orderStatus === "Delivered"
+                    order &&  order.orderStatus && order.orderStatus === "Delivered"
                       ? "greenColor"
                       : "redColor"
                   }
                 >
-                  {order.orderStatus && order.orderStatus}
+                  {order && order.orderStatus && order.orderStatus}
                 </p>
               </div>
             </div>

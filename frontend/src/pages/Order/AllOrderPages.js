@@ -6,6 +6,7 @@ import PaymentPage from "./PaymentPage.js";
 import OrderSucessPage from "./OrderSucessPage.js";
 import MyOrdersPage from "./MyOrdersPage.js";
 import OrderDetailsPage from "./OrderDetailsPage.js";
+import ErrorPage from "../../components/layout/ErrorPage/ErrorPage";
 
 function AllOrderPages() {
   return (
@@ -28,6 +29,8 @@ function AllOrderPages() {
 <Route path="/success" element={<OrderSucessPage />} /> 
 <Route path="/orders" element={<MyOrdersPage />} /> 
 <Route path="/:id" element={<OrderDetailsPage />} /> 
+
+<Route path="*" element={<ErrorPage/>} />
      
     </Routes>
   )

@@ -78,6 +78,7 @@ function UpdateProduct() {
     
   }, [dispatch,alert,error,isUpdated,navigate,productId,product,updateError])
 
+  console.log(name,description,price,"======== Test product");
   const updateProductSubmitHandler = (e) => {
     e.preventDefault();
 

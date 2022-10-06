@@ -31,12 +31,14 @@ const user = require("./routes/userRoute");
 const order = require("./routes/orderRoute");
 const cart = require("./routes/cartRoute");
 const payment = require("./routes/paymentRoute");
+const wishlist = require("./routes/wishlistRoute");
 
 app.use("/api/v1", product);
 app.use("/api/v1", user);
 app.use("/api/v1", order);
 app.use("/api/v1", cart);
 app.use("/api/v1", payment);
+app.use("/api/v1", wishlist);
 
 //MiddlewRware for Errors
 app.use(erroeMiddleware);
