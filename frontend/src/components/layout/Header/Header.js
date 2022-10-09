@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
@@ -81,17 +81,17 @@ export default function Header() {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleProfileMenuOpen = (event) => {
-    navigate(`/user/login`)
+    navigate(`/user/login`);
     //setAnchorEl(event.currentTarget);
     setAnchorEl(null);
   };
   const cartHandler = (event) => {
-    navigate(`/cart`)
+    navigate(`/cart`);
     //setAnchorEl(event.currentTarget);
     setAnchorEl(null);
   };
   const wishlistHandler = (event) => {
-    navigate(`/wishlist`)
+    navigate(`/wishlist`);
     //setAnchorEl(event.currentTarget);
     setAnchorEl(null);
   };
@@ -148,18 +148,15 @@ export default function Header() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      
-    
       <MenuItem onClick={cartHandler}>
-      
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={cartItems && cartItems.length} color="error">
-            <LocalMallIcon className="mobLocalMallIcon"  />
+            <LocalMallIcon className="mobLocalMallIcon" />
           </Badge>
         </IconButton>
         <p>Bag</p>
       </MenuItem>
-    
+
       <MenuItem>
         <IconButton
           size="large"
@@ -224,7 +221,6 @@ export default function Header() {
           </form>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-       
             <IconButton
               size="large"
               aria-label="show 4 new mails"
@@ -232,10 +228,10 @@ export default function Header() {
               onClick={cartHandler}
             >
               <Badge badgeContent={cartItems && cartItems.length} color="error">
-                <LocalMallIcon className="LocalMallIcon"/>
+                <LocalMallIcon className="LocalMallIcon" />
               </Badge>
             </IconButton>
-           
+
             <IconButton
               size="large"
               aria-label="show 17 new notifications"

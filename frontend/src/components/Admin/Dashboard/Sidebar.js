@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Sidebar.css";
 import logo from "../../../images/logo-E-buy.png";
-import {TreeView,TreeItem} from "@material-ui/lab"
+import { TreeView, TreeItem } from "@material-ui/lab";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import PostAddIcon from "@mui/icons-material/PostAdd";
 import ImportExportIcon from "@mui/icons-material/ImportExport";
@@ -25,25 +25,45 @@ function Sidebar() {
           <DashboardIcon /> Dashboard
         </p>
       </Link>
-    <Link to="">
-      <TreeView
-        defaultCollapseIcon={<ExpandMoreIcon />}
-        defaultExpandIcon={<ImportExportIcon />}
-      >
-        <TreeItem nodeId="1" label="Products">
-          <Link to="/admin/products">
-            {" "}
-            {/* to='/admin/products'  */}
-            <TreeItem nodeId="2" label="All" icon={<PostAddIcon />} />
-          </Link>
+      <Link to="">
+        <TreeView
+          defaultCollapseIcon={<ExpandMoreIcon />}
+          defaultExpandIcon={<ImportExportIcon />}
+        >
+          <TreeItem nodeId="1" label="Products">
+            <Link to="/admin/products">
+              {" "}
+              {/* to='/admin/products'  */}
+              <TreeItem nodeId="2" label="All" icon={<PostAddIcon />} />
+            </Link>
 
-          <Link to="/admin/product">
-            {" "}
-            {/* to='/admin/product */}
-            <TreeItem nodeId="3" label="Create" icon={<AddIcon />} />
-          </Link>
-        </TreeItem>
-      </TreeView>
+            <Link to="/admin/product">
+              {" "}
+              {/* to='/admin/product */}
+              <TreeItem nodeId="3" label="Create" icon={<AddIcon />} />
+            </Link>
+          </TreeItem>
+        </TreeView>
+      </Link>
+      <Link to="">
+        <TreeView
+          defaultCollapseIcon={<ExpandMoreIcon />}
+          defaultExpandIcon={<ImportExportIcon />}
+        >
+          <TreeItem nodeId="1" label="Category">
+            <Link to="/admin/categories">
+              {" "}
+              {/* to='/admin/products'  */}
+              <TreeItem nodeId="2" label="All" icon={<PostAddIcon />} />
+            </Link>
+
+            <Link to="/admin/category">
+              {" "}
+              {/* to='/admin/product */}
+              <TreeItem nodeId="3" label="Create" icon={<AddIcon />} />
+            </Link>
+          </TreeItem>
+        </TreeView>
       </Link>
       <Link to="/admin/orders">
         <p>

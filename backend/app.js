@@ -32,6 +32,7 @@ const order = require("./routes/orderRoute");
 const cart = require("./routes/cartRoute");
 const payment = require("./routes/paymentRoute");
 const wishlist = require("./routes/wishlistRoute");
+const category = require("./routes/categoryRoute");
 
 app.use("/api/v1", product);
 app.use("/api/v1", user);
@@ -39,6 +40,7 @@ app.use("/api/v1", order);
 app.use("/api/v1", cart);
 app.use("/api/v1", payment);
 app.use("/api/v1", wishlist);
+app.use("/api/v1", category);
 
 //MiddlewRware for Errors
 app.use(erroeMiddleware);
