@@ -34,12 +34,14 @@ const userSchema = new mongoose.Schema({
     {
       public_id: {
         type: String,
-        required:true
+        required:true,
+       
         
       },
       url: {
         type: String,
-        required:true
+        required:true,
+      
         
       },
     },
@@ -84,6 +86,16 @@ const userSchema = new mongoose.Schema({
 
   resetpasswordToken :String,
   resetPaswordExpire:Date,
+  verified: {
+    email: {
+        type: Boolean,
+        default: false
+    },
+    phone: {
+        type: Boolean,
+        default: false
+    }
+},
 
 });
 

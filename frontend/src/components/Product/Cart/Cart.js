@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect } from "react";
 import "./Cart.css";
 import CartItemCard from "./CartItemCard";
 import { useSelector, useDispatch } from "react-redux";
@@ -12,32 +12,15 @@ import Typography from "@mui/material/Typography";
 import { Link, useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { ADD_TO_CART_RESET, DELETE_CART_RESET } from "../../../constants/cartConstants";
+import Loader from "../../layout/Loader/Loader"
 
 function Cart() {
-  // const cartItems = [
-  //   {
-  //     product : "productID",
-  //     price : 400,
-  //     name : "test product 1",
-  //     quantity: 3,
-
-  //     image : "https://rukminim1.flixcart.com/image/416/416/xif0q/computer/y/b/w/-original-imagg6t9sb9gvafu.jpeg?q=70"
-  //   },
-  //   {
-  //     product : "productID",
-  //     price : 400,
-  //     name : "test product 2",
-  //     quantity: 1,
-
-  //     image : "https://rukminim1.flixcart.com/image/416/416/xif0q/computer/y/b/w/-original-imagg6t9sb9gvafu.jpeg?q=70"
-  //   }
-  // ]
-
+  
   const dispatch = useDispatch();
   const alert = useAlert();
   const navigate = useNavigate();
 
-  const { isAuthenticated } = useSelector((state) => state.user);
+  const { isAuthenticated ,user} = useSelector((state) => state.user);
   const { cartItems, loading } = useSelector((state) => state.mycart);
   const { success } = useSelector((state) => state.cart);
   const { message, isDeleted, error } = useSelector(
@@ -61,52 +44,7 @@ function Cart() {
     dispatch(myCartItems());
   }, [dispatch,success, error, alert,message, isDeleted]);
 
-  // useEffect(() => {
-  //   if (message) {
-  //     alert.success(message);
-  //     navigate('/cart')
-  //     dispatch({type:DELETE_CART_RESET})
-  //   }
-  //   dispatch(myCartItems());
-  // }, [message, isDeleted, dispatch]);
-
-  //   function doSomething(qty) {
-  //      let  globalQty = qty;
-  //      localStorage.setItem('globalQty', JSON.stringify(globalQty))
-  //   }
-
-  //   const globalQty =parseInt(localStorage.getItem("globalQty")
-  //   ? JSON.parse(localStorage.getItem("globalQty"))
-  //   : 1)
-  //   console.log(globalQty,"=========globalQty");
-  //  // const items = JSON.parse(localStorage.getItem('items'));
-  // // console.log(doSomething(),"===== globalQty");
-
-  // const [newQty, setNewQty] = useState(globalQty)
-  //   const increaseQuantity = (id,quantity,stock) => {
-
-  //    // const Qty = globalQty + 1;
-
-  //     if (stock <= newQty) return;
-  //     let qty = newQty + 1;
-  //     setNewQty(qty)
-  //    // console.log(newQty,"========= New Qty");
-  //     dispatch(addItemsToCart(id,newQty))
-  //     localStorage.setItem('globalQty', JSON.stringify(newQty))
-  //     dispatch(myCartItems())
-
-  //   }
-
-  //   const decreaseQuantity = (id,quantity) => {
-
-  //     if (1 >= newQty) return;
-  //     let qty = newQty - 1;
-  //     setNewQty(qty)
-
-  //     dispatch(addItemsToCart(id,newQty))
-  //     dispatch(myCartItems())
-
-  //   }
+ 
 
   const increaseQuantity = (id, quantity, stock) => {
     if (stock <= quantity) return;
@@ -124,33 +62,24 @@ function Cart() {
   };
 
   const checkoutHandler = () => {
-    if (!isAuthenticated) {
+    if (!isAuthenticated || isAuthenticated === false) {
       navigate("/login");
     } else {
-      navigate("/user/shipping");
+      if(user.verified.phone === true){
+        navigate("/user/shipping");
+      } else {
+        navigate("/user/verify/phone");
+      }
+      
     }
   };
 
-  // console.log(Cart,"========= Cart");
-  // const [newQty, setNewQty] = useState(globalQty)
-  //   const increaseQuantity = (id,quantity,stock) => {
-  //    { cartItems && cartItems.map((item)=> id === item.product ? {...item,quantity:item.quantity + 1} : item)}
-
-  //   }
-
-  //   const decreaseQuantity = (id,quantity) => {
-
-  //     if (1 >= newQty) return;
-  //     let qty = newQty - 1;
-  //     setNewQty(qty)
-
-  //     dispatch(addItemsToCart(id,newQty))
-  //     dispatch(myCartItems())
-
-  //   }
-
   return (
-    <Fragment>
+  <Fragment>
+    {loading ? (
+      <Loader/>
+    ) : (
+      <Fragment>
       {(cartItems && cartItems.length === 0) || !cartItems ? (
         <div className="emptyCart">
           <RemoveShoppingCartIcon />
@@ -218,6 +147,8 @@ function Cart() {
         </Fragment>
       )}
     </Fragment>
+    )}
+  </Fragment>
 
     // <Fragment>
     //     <div className="cartPage">

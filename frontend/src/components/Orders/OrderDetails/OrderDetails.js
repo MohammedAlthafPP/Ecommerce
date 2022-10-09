@@ -13,7 +13,7 @@ import { useParams } from "react-router-dom";
 function OrderDetails() {
 
     const {order,error,loading} = useSelector((state) => state.orderDetails);
-    const { isAuthenticated, user } = useSelector((state) => state.user);
+    const { user } = useSelector((state) => state.user);
     const dispatch = useDispatch();
     const alert = useAlert();
     const { id } = useParams();

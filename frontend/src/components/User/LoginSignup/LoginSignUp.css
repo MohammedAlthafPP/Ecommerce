@@ -111,6 +111,7 @@
   outline: none;
 }
 
+
 .loginForm > div > svg,
 .signUpForm > div > svg {
   position: absolute;
@@ -193,6 +194,7 @@
     padding: 1.5vmax 5vmax;
     font: 300 1.7vmax cursive;
   }
+  
   .loginForm > div > svg,
   .signUpForm > div > svg {
     font-size: 2.3vmax;
@@ -236,6 +238,7 @@
     padding: 2.5vmax 5vmax;
     font: 300 1.7vmax cursive;
   }
+ 
   .loginForm > div > svg,
   .signUpForm > div > svg {
     font-size: 2.8vmax;

@@ -2,7 +2,7 @@ import React, { Fragment, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import CheckoutStep from "../../components/Product/Cart/CheckoutStep";
 import MetaData from "../../components/layout/MetaData";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Typography } from "@mui/material";
 import { useAlert } from "react-alert";
 import axios from "../../axios"
@@ -31,8 +31,8 @@ function Payment() {
     const stripe =useStripe();
 
     const orderInfo = JSON.parse(sessionStorage.getItem('orderInfo'));
-    const { isAuthenticated, user } = useSelector((state) => state.user);
-    const { cartItems, loading } = useSelector((state) => state.mycart);
+    const { user } = useSelector((state) => state.user);
+    const { cartItems} = useSelector((state) => state.mycart);
     const { shippingInfo } = useSelector((state) => state.shippingDetails);
     const { error } = useSelector((state) => state.newOrder);
     //const { error } = useSelector((state) => state.newOrder);

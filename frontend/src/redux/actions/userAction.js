@@ -35,6 +35,12 @@ import {
   DELETE_USER_SUCCESS,
   DELETE_USER_FAIL,
   CLEAR_ERRORS,
+  VERIFY_PHONE_REQUEST,
+  VERIFY_PHONE_SUCCESS,
+  VERIFY_PHONE_FAIL,
+  RESEND_PHONE_OTP_REQUEST,
+  RESEND_PHONE_OTP_SUCCESS,
+  RESEND_PHONE_OTP_FAIL,
 } from "../../constants/userConstants";
 import axios from "../../axios";
 
@@ -86,6 +92,7 @@ export const loadUser = () => async (dispatch) => {
 // Logout User
 export const logout = () => async (dispatch) => {
   try {
+    await localStorage.removeItem("Udetails");
     await axios.get(`/logout`);
 
     dispatch({ type: LOGOUT_USER_SUCCESS });
@@ -101,16 +108,16 @@ export const updateProfile = (userData) => async (dispatch) => {
 
     const config = { headers: { "Content-Type": "multipart/form-data" } };
 
-    const { data } = await axios.put(`/me/update`, userData, config );
+    const { data } = await axios.put(`/me/update`, userData, config);
 
     dispatch({ type: UPDATE_PROFILE_SUCCESS, payload: data.success });
   } catch (error) {
     dispatch({
       type: UPDATE_PROFILE_FAIL,
-       payload:  ((error||{}).response||{}).data || 'something went wrong please try again',
-   // payload: error.response.data,
-   
-     
+      payload:
+        ((error || {}).response || {}).data ||
+        "something went wrong please try again",
+      // payload: error.response.data,
     });
   }
 };
@@ -122,20 +129,19 @@ export const updatePassword = (passwords) => async (dispatch) => {
 
     const config = { headers: { "Content-Type": "application/json" } };
 
-    const { data } = await axios.put(`/password/update`, passwords,  config );
+    const { data } = await axios.put(`/password/update`, passwords, config);
 
     dispatch({ type: UPDATE_PASSWORD_SUCCESS, payload: data.success });
   } catch (error) {
     dispatch({
       type: UPDATE_PASSWORD_FAIL,
-    payload:  ((error||{}).response||{}).data || 'something went wrong please try again',
-  // payload: error.response.data,
-   
-     
+      payload:
+        ((error || {}).response || {}).data ||
+        "something went wrong please try again",
+      // payload: error.response.data,
     });
   }
 };
-
 
 // Forgot Password
 export const forgotPassword = (email) => async (dispatch) => {
@@ -147,33 +153,39 @@ export const forgotPassword = (email) => async (dispatch) => {
     const { data } = await axios.post(`/password/forgot`, email, config);
     dispatch({ type: FORGOT_PASSWORD_SUCCESS, payload: data.message });
   } catch (error) {
-    dispatch({ type: FORGOT_PASSWORD_FAIL, 
-      payload:((error||{}).response||{}).data||'something went wrong please try again',
-   // payload: error.response.data,
-
-    
+    dispatch({
+      type: FORGOT_PASSWORD_FAIL,
+      payload:
+        ((error || {}).response || {}).data ||
+        "something went wrong please try again",
+      // payload: error.response.data,
     });
   }
 };
 
 // Reset Password
-export const resetPassword = (token,passwords) => async (dispatch) => {
+export const resetPassword = (token, passwords) => async (dispatch) => {
   try {
     dispatch({ type: RESET_PASSWORD_REQUEST });
 
     const config = { headers: { "Content-Type": "application/json" } };
 
-    const { data } = await axios.put(`/password/reset/${token}`, passwords, config);
+    const { data } = await axios.put(
+      `/password/reset/${token}`,
+      passwords,
+      config
+    );
     dispatch({ type: RESET_PASSWORD_SUCCESS, payload: data.success });
   } catch (error) {
-    dispatch({ type: RESET_PASSWORD_FAIL,
-      payload:((error||{}).response||{}).data || 'something went wrong please try again', 
+    dispatch({
+      type: RESET_PASSWORD_FAIL,
+      payload:
+        ((error || {}).response || {}).data ||
+        "something went wrong please try again",
       //payload: error.response.data,
-  
-  });
+    });
   }
 };
-
 
 // Get All Users --Admin
 export const getAllUsers = () => async (dispatch) => {
@@ -188,7 +200,6 @@ export const getAllUsers = () => async (dispatch) => {
   }
 };
 
-
 // Get User Details --Admin
 export const getUserDetails = (id) => async (dispatch) => {
   try {
@@ -202,35 +213,30 @@ export const getUserDetails = (id) => async (dispatch) => {
   }
 };
 
-
 // Update User --Admin
-export const updateUser = (id,userData) => async (dispatch) => {
+export const updateUser = (id, userData) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_USER_REQUEST });
 
     const config = { headers: { "Content-Type": "application/json" } };
 
-    const { data } = await axios.put(`/admin/user/${id}`, userData, config );
+    const { data } = await axios.put(`/admin/user/${id}`, userData, config);
 
     dispatch({ type: UPDATE_USER_SUCCESS, payload: data.success });
   } catch (error) {
     dispatch({
       type: UPDATE_USER_FAIL,
-    payload:  ((error||{}).response||{}).data || 'something went wrong please try again',
- 
-   
-     
+      payload:
+        ((error || {}).response || {}).data ||
+        "something went wrong please try again",
     });
   }
 };
-
 
 // Delete User --Admin
 export const deleteUser = (id) => async (dispatch) => {
   try {
     dispatch({ type: DELETE_USER_REQUEST });
-
-   
 
     const { data } = await axios.delete(`/admin/user/${id}`);
 
@@ -238,14 +244,50 @@ export const deleteUser = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: DELETE_USER_FAIL,
-    payload:  ((error||{}).response||{}).data || 'something went wrong please try again',
- 
-   
-     
+      payload:
+        ((error || {}).response || {}).data ||
+        "something went wrong please try again",
     });
   }
 };
 
+// verify User Phone Number
+export const verifyPhone = (otp) => async (dispatch) => {
+  try {
+    dispatch({ type: VERIFY_PHONE_REQUEST });
+
+    const config = { headers: { "Content-Type": "application/json" } };
+
+    const { data } = await axios.post(`/verify/phone`, otp, config);
+    dispatch({ type: VERIFY_PHONE_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: VERIFY_PHONE_FAIL,
+      payload:
+        ((error || {}).response || {}).data ||
+        "something went wrong please try again",
+      // payload: error.response.data,
+    });
+  }
+};
+
+// Resend Phone OTP
+export const resendPhoneOTP = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: RESEND_PHONE_OTP_REQUEST });
+
+    const { data } = await axios.get(`/resendotp/${id}`);
+    dispatch({ type: RESEND_PHONE_OTP_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: RESEND_PHONE_OTP_FAIL,
+      payload:
+        ((error || {}).response || {}).data ||
+        "something went wrong please try again",
+      // payload: error.response.data,
+    });
+  }
+};
 
 // Clearing Errors
 export const clearErrors = () => async (dispatch) => {

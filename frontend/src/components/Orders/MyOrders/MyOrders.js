@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import {useDispatch,useSelector} from "react-redux";
 import {myOrders,clearErrors} from "../../../redux/actions/orderAction"
-import { DataGrid, bgBG } from '@mui/x-data-grid';
+import { DataGrid} from '@mui/x-data-grid';
 import LaunchIcon from '@mui/icons-material/Launch';
 import Loader from "../../layout/Loader/Loader";
 import {useAlert} from "react-alert"
@@ -18,7 +18,7 @@ function MyOrders() {
     const alert  = useAlert();
     const {loading, error, orders} = useSelector((state)=> state.myOrders);
 
-    const { isAuthenticated, user } = useSelector((state) => state.user);
+    const { user } = useSelector((state) => state.user);
 
     useEffect(() => {
         if(error) {

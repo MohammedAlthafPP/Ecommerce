@@ -159,6 +159,10 @@
   justify-content: flex-start;
   align-items: center;
 }
+.productCard > div > span:first-child {
+  
+  font-size: 1.5vmax;
+}
 
 .productCardSpan {
   margin: 0.5vmax;
@@ -209,6 +213,7 @@
 
  .cartButton {
   display: flex;
+  justify-content: space-between;
  
   
 

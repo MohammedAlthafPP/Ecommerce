@@ -58,7 +58,7 @@ function Dashboard() {
     totalAmount += item.totalPrice
   })
   
- console.log(totalAmount,"=====totalAmount");
+
 
   const lineState = {
     labels: ["Initial Amount", "Amount Earned"],

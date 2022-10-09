@@ -1,128 +1,143 @@
-.profileContainer{
-    display: flex;
-    height: 100vh;
-    width: 100vw;
-    position: fixed;
-    top: 2%;
-    left: 0%;
-    max-width: 100%;
-    background-color: white;
+.profileContainer {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 2%;
+  left: 0%;
+  max-width: 100%;
+  background-color: white;
 }
 .profileContainer > div {
-    display: flex;
-    height: 100vh;
-    width: 100vw;
-    max-width: 100%;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 3vmax;
-
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  max-width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3vmax;
 }
 .profileContainer > div:first-child > h1 {
-    color: rgba(0, 0, 0, 0.555);
-    font: 500 2.2vmax var(--Roboto-font-family);
-    transform: translateX(-10vmax) translateY(-1vmax);
+  color: rgba(0, 0, 0, 0.555);
+  font: 500 2.2vmax var(--Roboto-font-family);
+  transform: translateX(-10vmax) translateY(-1vmax);
 }
-.profileContainer > div:first-child >img {
-    width: 20vmax;
-    height: 20vmax;
-    border-radius: 100%;
-    transition: all 0.5s;
-    
+.profileContainer > div:first-child > img {
+  width: 20vmax;
+  height: 20vmax;
+  border-radius: 100%;
+  transition: all 0.5s;
 }
-.profileContainer > div:first-child >img:hover {
-    transform: scale(1.05);
+.profileContainer > div:first-child > img:hover {
+  transform: scale(1.05);
 }
 .profileContainer > div:first-child > a {
-    border: none;
-    background-color: var(--primary-color);
-    font: 400 1max var(--Roboto-font-family);
-    color: white;
-    text-align: center;
-    margin: 4vmax;
-    width: 30%;
-    padding: 0.5vmax;
-    text-decoration: none;
-    transition: all 0.5s;
-
+  border: none;
+  background-color: var(--primary-color);
+  font: 400 1max var(--Roboto-font-family);
+  color: white;
+  text-align: center;
+  margin: 4vmax;
+  width: 30%;
+  padding: 0.5vmax;
+  text-decoration: none;
+  transition: all 0.5s;
 }
 
 .profileContainer > div:first-child > a:hover {
-    background-color: var( --primary-color-hover);
+  background-color: var(--primary-color-hover);
 }
 .profileContainer > div:last-child {
-    justify-content: space-evenly;
-    align-items: flex-start;
-    padding: 5vmax;
-    box-sizing: border-box;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  padding: 5vmax;
+  box-sizing: border-box;
 }
 .profileContainer > div:last-child > div > h4 {
-    color: black;
-    font: 400 1.2vmax var(--Roboto-font-family);
-
+  color: black;
+  font: 400 1.2vmax var(--Roboto-font-family);
 }
 .profileContainer > div:last-child > div > p {
-    color: rgba(0, 0, 0, 0.418);
-    font: 400 1vmax cursive;
-    margin: 0.2vmax;
-
+  color: rgba(0, 0, 0, 0.418);
+  font: 400 1vmax cursive;
+  margin: 0.2vmax;
 }
 .profileContainer > div:last-child > div:last-child {
-    display: flex;
-    flex-direction: column;
-    width: 60%;
-
+  display: flex;
+  flex-direction: column;
+  width: 60%;
 }
 .profileContainer > div:last-child > div:last-child > a {
-    border: none;
-    background-color: rgb(68, 68, 68);
-    font: 400 1vmax var(--Roboto-font-family);
-    color: white;
-    text-decoration: none;
-    padding: 0.5vmax;
-    text-align: center;
-    transition: all 0.5s;
-    margin: 1vmax 0;
+  border: none;
+  background-color: rgb(68, 68, 68);
+  font: 400 1vmax var(--Roboto-font-family);
+  color: white;
+  text-decoration: none;
+  padding: 0.5vmax;
+  text-align: center;
+  transition: all 0.5s;
+  margin: 1vmax 0;
 }
 
 .profileContainer > div:last-child > div:last-child > a:hover {
-    background-color: rgb(31, 31, 31);
+  background-color: rgb(31, 31, 31);
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  color: red !important;
+}
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 200px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1.5;
+}
+.tooltip:hover .tooltiptext {
+  visibility: visible;
 }
 
 @media screen and (max-width: 600px) {
-    .profileContainer {
-        flex-direction: column;
-    }
-   
-    .profileContainer > div:first-child > h1 {
-        
-        font: 500 3.2vmax var(--Roboto-font-family);
-        transform: translateY(-2vmax);
-        padding: 1vmax;
-        margin-top: 10vmax;
-       
+  .profileContainer {
+    flex-direction: column;
+  }
 
-    }
-    .profileContainer > div:last-child {
-        text-align: center;
-        align-items: center;
-
-    }
-    .profileContainer > div:last-child > div > h4 {
-        font: 400 2.5vmax var(--Roboto-font-family);
-        
-    }
-    .profileContainer > div:last-child > div > p {
-        font: 400 2vmax cursive;
-        margin: 0.5vmax 0;
-
-
-    }
-    .profileContainer > div:last-child > div:last-child > a {
-        font: 400 1.8vmax var(--Roboto-font-family);
-        padding: 1vmax;
-        margin: 2vmax 0;
-    }
-    
+  .profileContainer > div:first-child > h1 {
+    font: 500 3.2vmax var(--Roboto-font-family);
+    transform: translateY(-2vmax);
+    padding: 1vmax;
+    margin-top: 10vmax;
+  }
+  .profileContainer > div:last-child {
+    text-align: center;
+    align-items: center;
+  }
+  .profileContainer > div:last-child > div > h4 {
+    font: 400 2.5vmax var(--Roboto-font-family);
+  }
+  .profileContainer > div:last-child > div > p {
+    font: 400 2vmax cursive;
+    margin: 0.5vmax 0;
+  }
+  .profileContainer > div:last-child > div:last-child > a {
+    font: 400 1.8vmax var(--Roboto-font-family);
+    padding: 1vmax;
+    margin: 2vmax 0;
+  }
+  .tooltip .tooltiptext {
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -100px;
+  }
 }

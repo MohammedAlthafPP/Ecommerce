@@ -7,7 +7,7 @@ const AdminPrivateRoute = (Admin) => {
 
   const { isAuthenticated, user } = useSelector((state) => state.user);
 
-  if (isAuthenticated == false) {
+  if (isAuthenticated === false) {
     return <Navigate to="/user/login" replace />;
   }
   if (isAdmin === true && user.role === "admin") {

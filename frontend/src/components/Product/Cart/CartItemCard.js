@@ -1,8 +1,8 @@
 import React from 'react'
-import {Link, useNavigate} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import "./CartItemCard.css"
 import { useDispatch } from "react-redux";
-import { deleteCartItem, myCartItems } from '../../../redux/actions/cartAction';
+import { deleteCartItem } from '../../../redux/actions/cartAction';
 
 function CartItemCard({item}) {
   const dispatch = useDispatch();

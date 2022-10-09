@@ -17,9 +17,9 @@ function UpdateUser() {
   const navigate = useNavigate();
   const {id} =useParams();
 
-  const {user,loading,error} = useSelector((state)=> state.userDetails);
+  const {user,error} = useSelector((state)=> state.userDetails);
   console.log( user,"=========== User");
-  const { error:updateError, isUpdated,loading:updateLoading} = useSelector((state)=> state.profile);
+  const { error:updateError, isUpdated,loading} = useSelector((state)=> state.profile);
 
     const [name, setName] = useState(user&&user.name)
     const [email, setEmail] = useState(user&& user.email)
@@ -32,7 +32,7 @@ function UpdateUser() {
 
 
   console.log(user && user._id === userId,"==user && user._id === userId");
-  console.log(user && user._id ,"=========", userId);
+  console.log(user && typeof user._id ,"=========",typeof userId);
 
   useEffect(() => {
     // if(user && user._id !== userId){
@@ -75,7 +75,7 @@ function UpdateUser() {
     }
 
     dispatch(getUserDetails(userId))
-  }, [dispatch,alert,error,isUpdated,navigate,updateError,userId])
+  }, [dispatch,alert,error,isUpdated,navigate,updateError,userId,useParams])
  
 
   console.log(name,email,role,"=========== name,email,role");
@@ -223,7 +223,7 @@ function UpdateUser() {
      <Button
      id='createProductBtn'
      type='submit'
-     disabled={updateLoading ? true : false || role === "" ? true : false} >
+     disabled={loading ? true : false || role === "" ? true : false} >
        Update
 
      </Button>

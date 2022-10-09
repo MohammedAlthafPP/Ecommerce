@@ -12,12 +12,16 @@ const {
   getSingleUserDetails,
   updateUserRole,
   deleteUser,
+  verifyRegisterOtp,
+  resendOtp,
 } = require("../controllers/userController");
 
 const { isAuthenticatedUser, authorizesdRoles } = require("../middleware/auth");
 const router = express.Router();
 
 router.route("/register").post(registerUser);
+router.route("/verify/phone").post(isAuthenticatedUser,verifyRegisterOtp);
+router.route("/resendotp/:id").get(isAuthenticatedUser,resendOtp);
 router.route("/login").post(loginUser);
 router.route("/password/forgot").post(forgotPassword);
 router.route("/password/reset/:token").put(ressetPassword);

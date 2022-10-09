@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useState } from "react";
 import "./Shipping.css"
 import { useSelector, useDispatch } from "react-redux";
 import MetaData from "../../layout/MetaData";
@@ -8,16 +8,14 @@ import LocationCityIcon from '@mui/icons-material/LocationCity';
 import PublicIcon from '@mui/icons-material/Public';
 import TransferWithinAStationIcon from '@mui/icons-material/TransferWithinAStation';
 import {Country,State} from "country-state-city"
-import { useAlert } from "react-alert";
 import CheckoutStep from "../../Product/Cart/CheckoutStep.js"
-import { getShippingInfo, savaShippingInfo } from "../../../redux/actions/cartAction";
+import { savaShippingInfo } from "../../../redux/actions/cartAction";
 import { useNavigate } from "react-router-dom";
 
 
 function Shipping() {
 
   const dispatch = useDispatch();
-  const alert = useAlert();
   const naviagte = useNavigate()
 
 

@@ -15,7 +15,7 @@ import ErrorPage from "../../components/layout/ErrorPage/ErrorPage";
 function AdminPages() {
   return (
     <Routes>
-      <Route path="/dashboard" element={<DashBoardPage />} />
+      {/* <Route path="/dashboard" element={<DashBoardPage />} /> */}
       <Route path="/products" element={<ProductListpage />} />
       <Route path="/product" element={<NewProductPage />} />
       <Route path="/product/:id" element={<UpdateProductPage />} />
@@ -26,9 +26,9 @@ function AdminPages() {
       <Route path="/reviews" element={<ProductReviewsPage />} />
       <Route path="*" element={<ErrorPage/>} />
 
-      {/* <Route path="/dashboard" element={<AdminPrivateRoute isAdmin={true}/>}>
+      <Route path="/dashboard" element={<AdminPrivateRoute isAdmin={true}/>}>
         <Route path="" element={<DashBoardPage />} />
-      </Route> */}
+      </Route>
 
     </Routes>
   );

@@ -1,6 +1,6 @@
 * {
-    margin: 0;
-    scroll-behavior: smooth;
+  margin: 0;
+  scroll-behavior: smooth;
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -11,16 +11,16 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
 
 .redColor {
-    color: red !important;
+  color: red !important;
 }
 
 .greenColor {
-    color: green !important;
+  color: green !important;
 }
 
 .LocalMallIcon {
@@ -31,5 +31,33 @@ input[type=number] {
 }
 
 body {
-  cursor: url("./images//cursor.png"),auto;
+  cursor: url("./images//cursor.png"), auto;
+}
+
+/* style={{margin: "0 .5vmax",backgroundColor:'white',border:'1px solid rgba(0,0,0,0.256)',borderRadius:'5px',padding:'.3vmax'}} */
+
+.toastCustomApp > button,
+.toastCustomApp > a >button {
+  margin: 0 0.5vmax;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.265);
+  border-radius: 5px;
+  padding: 0.5vmax 0.8vmax;
+  float: right;
+  text-decoration: none;
+}
+
+.toastCustomApp > a>button:hover {
+  transform: scaleX(1.1);
+  cursor: pointer;
+  background-color: rgb(170, 224, 178) !important;
+  color: white;
+  border: none;
+}
+.toastCustomApp > button:last-child:hover {
+  transform: scaleX(1.1);
+  cursor: pointer;
+  background-color: rgb(238, 170, 170) !important;
+  color: white;
+  border: none;
 }

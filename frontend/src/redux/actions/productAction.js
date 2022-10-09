@@ -29,7 +29,6 @@ import {
   DELETE_REVIEW_REQUEST,
   DELETE_REVIEW_SUCCESS,
   DELETE_REVIEW_FAIL,
-  DELETE_REVIEW_RESET,
   CLEAR_ERRORS,
 } from "../../constants/productConstants";
 

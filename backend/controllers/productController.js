@@ -5,7 +5,6 @@ const ApiFeatures = require("../utils/apifeatures");
 const cloudinary = require("cloudinary");
 //Create product
 exports.createProduct = catchAsyncErrors(async (req, res, next) => {
-
   let images = [];
   if (typeof req.body.images === "string") {
     images.push(req.body.images);
@@ -18,34 +17,12 @@ exports.createProduct = catchAsyncErrors(async (req, res, next) => {
     const result = await cloudinary.v2.uploader.upload(images[i], {
       folder: "products",
     });
-    
 
     imagesLinks.push({
       public_id: result.public_id,
       url: result.secure_url,
     });
   }
-
-  // const imagesLinks = [];
-  // for (let i = 0; i < images.length; i++) {
-  //    await cloudinary.v2.uploader.upload(images[i], {
-  //     folder: "products"}, (error, result)=>{
-
-  //       if(result) {
-  //         imagesLinks.push({
-  //           public_id: result.public_id,
-  //           url: result.secure_url,
-  //         });
-  //         console.log(result,"***********");
-
-  //       }
-  //       if(error){
-  //         console.log(error,"===== Cloudinary Error");
-  //       }
-
-  //   });
-
-  // }
 
   req.body.images = imagesLinks;
   req.body.seller = req.user.id;
@@ -83,7 +60,6 @@ exports.getAllproducts = catchAsyncErrors(async (req, res, next) => {
 //Get Product Details
 exports.getProductDetails = catchAsyncErrors(async (req, res, next) => {
   const product = await Product.findById(req.params.id);
- 
 
   if (!product) {
     return next(new ErrorHander("Product not found", 404));
@@ -132,7 +108,6 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
       const result = await cloudinary.v2.uploader.upload(images[i], {
         folder: "products",
       });
-     
 
       imagesLinks.push({
         public_id: result.public_id,
@@ -185,7 +160,7 @@ exports.createPruductReview = catchAsyncErrors(async (req, res, next) => {
   const review = {
     user: req.user._id,
     name: req.user.name,
-    avatar:req.user.avatar[0].url,
+    avatar: req.user.avatar[0].url,
     rating: Number(rating),
     comment,
   };
@@ -226,7 +201,6 @@ exports.getPruductReviews = catchAsyncErrors(async (req, res, next) => {
   if (!product) {
     return next(new ErrorHander("Product Reviews not found", 404));
   }
- 
 
   res.status(200).json({
     success: true,

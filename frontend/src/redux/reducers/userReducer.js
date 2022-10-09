@@ -39,6 +39,12 @@ import {
   DELETE_USER_RESET,
   DELETE_USER_FAIL,
   CLEAR_ERRORS,
+  VERIFY_PHONE_REQUEST,
+  VERIFY_PHONE_SUCCESS,
+  VERIFY_PHONE_FAIL,
+  RESEND_PHONE_OTP_SUCCESS,
+  RESEND_PHONE_OTP_REQUEST,
+  RESEND_PHONE_OTP_FAIL,
 } from "../../constants/userConstants";
 
 // Register and Login
@@ -259,6 +265,51 @@ export const userDetailsReducer = (state = { user: {} }, action) => {
       };
 
     case USER_DETAILS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+
+    default:
+      return state;
+  }
+};
+
+export const verifyUserReducer = (state = {}, action) => {
+  switch (action.type) {
+    case VERIFY_PHONE_REQUEST:
+    case RESEND_PHONE_OTP_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+
+    case VERIFY_PHONE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        message: action.payload.message,
+        isVerified: action.payload.success,
+      };
+
+    case RESEND_PHONE_OTP_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        message: action.payload.message,
+        isResend: action.payload.success,
+      };
+
+    case VERIFY_PHONE_FAIL:
+    case RESEND_PHONE_OTP_FAIL:
       return {
         ...state,
         loading: false,

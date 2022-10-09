@@ -2,16 +2,9 @@ import { configureStore } from "@reduxjs/toolkit";
 import { cartReducer, deleteCartItemReducer, myCartReducer, saveShippingReducer, shippingDetails } from "./reducers/cartReducer";
 import { allOrdersReducer, myOrdersReducer, newOrderReducer, orderDetailsReducer, orderReducer } from "./reducers/orderReducer";
 import { newProductReducer, newReviewReducer, productDetailsReducer, productReducer, productReviewsReducer, productsReducer, reviewReducer,} from "./reducers/productReducers";
-import { allUsersReducer, forgotPasswordReducer, profileReducer, userDetailsReducer, userReducer } from "./reducers/userReducer";
+import { allUsersReducer, forgotPasswordReducer, profileReducer, userDetailsReducer, userReducer, verifyUserReducer } from "./reducers/userReducer";
 
-// let initialState = {
-//   cart: {
-//     cartItems: localStorage.getItem("cartItems")
-//       ? JSON.parse(localStorage.getItem("cartItems"))
-//       : [],
-//   },
-// };
-const initialState = {};
+
 
 
 
@@ -39,6 +32,7 @@ const Store = configureStore({
     userDetails : userDetailsReducer,
     productReviews : productReviewsReducer,
     reviews : reviewReducer,
+    verifyUser : verifyUserReducer,
     
     
   },

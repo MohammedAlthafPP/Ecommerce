@@ -10,6 +10,7 @@ import UpdatePasswordPage from "./UpdatePasswordPage";
 import ForgotPasswordPage from "./ForgotPasswordPage";
 import ResetPasswordPage from "./ResetPasswordPage";
 import CreateShippingPage from "./CreateShippingPage.js";
+import VerifyPhoneNumberPage from "./VerifyPhoneNumberPage.js";
 import ErrorPage from "../../components/layout/ErrorPage/ErrorPage";
 
 function UserPages() {
@@ -32,6 +33,7 @@ function UserPages() {
       
        <Route path="/password/forgot" element={<ForgotPasswordPage />} />
        <Route path="/password/reset/:token" element={<ResetPasswordPage />} />
+       <Route path="/verify/phone" element={<VerifyPhoneNumberPage />} />
 
        <Route path="/shipping" element={<PrivateRoute />}>
         <Route path="" element={<CreateShippingPage />} />

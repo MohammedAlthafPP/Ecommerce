@@ -11,11 +11,12 @@ import MetaData from "../../../layout/MetaData";
 import Sidebar from "../../Dashboard/Sidebar";
 import "./ProductsList.css";
 import { Link, useNavigate } from "react-router-dom";
-import { Button, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useEffect } from "react";
 import { DELETE_PRODUCT_RESET } from "../../../../constants/productConstants";
+import Loader from "../../../layout/Loader/Loader";
 
 function ProductList() {
   const dispatch = useDispatch();
@@ -90,20 +91,26 @@ function ProductList() {
       <MetaData
         title={`${'All Products -Admin'} -- ${process.env.REACT_APP_SITE_NAME}`}
       />
-      <div className="dashboard">
-        <Sidebar/>
-        <div className="productListContainer">
-          <h1 id="productListHeading">ALL PRODUCTS</h1>
-          <DataGrid 
-          rows={rows}
-          columns={columns}
-          pageSize={10}
-          disableSelectionOnClick
-          className="productListTable"
-          autoHeight
-          />
-        </div>
-      </div>
+     <Fragment>
+      {loading ? (
+        <Loader/>
+      ) : (
+         <div className="dashboard">
+         <Sidebar/>
+         <div className="productListContainer">
+           <h1 id="productListHeading">ALL PRODUCTS</h1>
+           <DataGrid 
+           rows={rows}
+           columns={columns}
+           pageSize={10}
+           disableSelectionOnClick
+           className="productListTable"
+           autoHeight
+           />
+         </div>
+       </div>
+      )}
+     </Fragment>
     </Fragment>
   )
 }

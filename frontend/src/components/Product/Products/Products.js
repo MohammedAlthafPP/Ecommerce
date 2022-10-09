@@ -69,7 +69,9 @@ function Products() {
           <h2 className="productsHeading">Products</h2>
           <div className="products">
             {products &&
-              products.map((product,index) => <ProductCard product={product} key={index} />)}
+              products.map((product, index) => (
+                <ProductCard product={product} key={index} />
+              ))}
           </div>
 
           <div className="filterBox">

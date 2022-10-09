@@ -17,12 +17,13 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useEffect } from "react";
 import {DELETE_ORDER_RESET} from "../../../../constants/orderConstants";
+import Loader from "../../../layout/Loader/Loader";
 
 function OrderList() {
   const dispatch = useDispatch();
   const alert = useAlert();
   const navigate = useNavigate()
-  const {loading, error, orders} = useSelector((state)=> state.allOrders);
+  const { error, orders,loading} = useSelector((state)=> state.allOrders);
   const { error:deleteError, isDeleted} = useSelector((state)=> state.order);
 
 
@@ -96,20 +97,26 @@ function OrderList() {
       <MetaData
         title={`${'All Orders - Admin'} -- ${process.env.REACT_APP_SITE_NAME}`}
       />
-      <div className="dashboard">
-        <Sidebar/>
-        <div className="productListContainer">
-          <h1 id="productListHeading">ALL ORDERS</h1>
-          <DataGrid 
-          rows={rows}
-          columns={columns}
-          pageSize={10}
-          disableSelectionOnClick
-          className="productListTable"
-          autoHeight
-          />
+      <Fragment>
+        {loading ? (
+          <Loader/>
+        ) : (
+          <div className="dashboard">
+          <Sidebar/>
+          <div className="productListContainer">
+            <h1 id="productListHeading">ALL ORDERS</h1>
+            <DataGrid 
+            rows={rows}
+            columns={columns}
+            pageSize={10}
+            disableSelectionOnClick
+            className="productListTable"
+            autoHeight
+            />
+          </div>
         </div>
-      </div>
+        )}
+      </Fragment>
     </Fragment>
   )
 }

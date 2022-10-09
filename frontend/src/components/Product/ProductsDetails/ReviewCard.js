@@ -1,12 +1,12 @@
 import React from "react";
 import ProfilerPng from "../../../images/Profile.png";
 import { Rating } from "@mui/material";
-import { useSelector } from "react-redux";
+
 
 function ReviewCard({ review }) {
  
 
-  const {user} = useSelector((state) => state.user);
+
 
   const options = {
     value:review.rating,

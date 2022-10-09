@@ -3,6 +3,7 @@ const Product = require("../models/productModels");
 const ErrorHander = require("../utils/errorhandler");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const User = require("../models/userModel");
+const Cart = require("../models/cartModel");
 
 //Create new Order
 exports.newOrder = catchAsyncErrors(async (req, res, next) => {
@@ -28,6 +29,14 @@ exports.newOrder = catchAsyncErrors(async (req, res, next) => {
     user: req.user._id,
   });
 
+  const userCart = await Cart.find({ user: req.user._id });
+
+  if (!userCart) {
+    return next(new ErrorHander("Cart not found", 404));
+  }
+
+  await Cart.deleteOne({ user: req.user._id });
+ 
   res.status(201).json({
     success: true,
     order,
@@ -109,11 +118,11 @@ exports.updateOrderStatus = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHander("You have already delivered this order", 400));
   }
 
-if(req.body.status === 'Shipped'){
-  order.orderItems.forEach(async (order) => {
-    await updateStock(order.product, order.quantity);
-  });
-}
+  if (req.body.status === "Shipped") {
+    order.orderItems.forEach(async (order) => {
+      await updateStock(order.product, order.quantity);
+    });
+  }
 
   order.orderStatus = req.body.status;
 

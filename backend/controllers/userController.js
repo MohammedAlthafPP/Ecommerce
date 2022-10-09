@@ -3,8 +3,14 @@ const catchAsyncError = require("../middleware/catchAsyncErrors");
 const User = require("../models/userModel");
 const sendToken = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendEmail");
+const { sendOtp } = require("../utils/twilioOTP");
 const crypto = require("crypto");
 const cloudinary = require("cloudinary");
+const { findOne } = require("../models/userModel");
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const serviceSid = process.env.TWILIO_SERVICE_SID;
+const client = require("twilio")(accountSid, authToken);
 
 //Register a User
 exports.registerUser = catchAsyncError(async (req, res, next) => {
@@ -13,8 +19,13 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
     width: 150,
     crop: "scale",
   });
-console.log(req.file,"req.file");
+  console.log(req.file, "req.file");
   const { name, email, phone, password } = req.body;
+
+  const isUser = await User.findOne({ email });
+  if (isUser) {
+    return next(new ErrorHander("User already exists", 403));
+  }
 
   const user = await User.create({
     name,
@@ -27,11 +38,74 @@ console.log(req.file,"req.file");
     },
   });
 
-  // if (!user) {
-  //   return next(new ErrorHander("something went wrong please try again", 401));
-  // }
-
+  const OtpRes = await sendOtp(user.phone);
   sendToken(user, 201, res);
+});
+
+// Verify OTP
+exports.verifyRegisterOtp = catchAsyncError(async (req, res, next) => {
+  try {
+    const otp = req.body.otp;
+    const user = await User.findById(req.user.id);
+
+    if (!user) {
+      return next(new ErrorHander("Invalid User", 401));
+    }
+
+    const responce = await client.verify
+      .services(serviceSid)
+      .verificationChecks.create({
+        to: `+91${user.phone}`,
+        code: otp,
+      })
+      .then(async (response) => {
+        if (response.status === "approved" && response.valid == true) {
+          await User.findByIdAndUpdate(req.user.id, {
+            $set: { "verified.phone": true },
+          });
+
+          res.status(200).json({
+            success: true,
+            message: `Your ${user.phone} verified successfully`,
+          });
+        } else {
+          res.status(404).json({
+            success: false,
+            message: `Invalid OTP!!!!`,
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err, "=== error");
+      });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ verified: false, msg: "Something went wrong ...." });
+  }
+});
+
+// Resend OTP
+exports.resendOtp = catchAsyncError(async (req, res, next) => {
+  // req.params.id
+  const user = await User.findById(req.params.id, { phone: 1 });
+  console.log(user);
+  if (!user) {
+    return next(new ErrorHander("Invalid User", 403));
+  }
+  let str = `${user.phone}` + "";
+  var trailingCharsIntactCount = 4;
+
+  str =
+    new Array(str.length - trailingCharsIntactCount + 1).join("x") +
+    str.slice(-trailingCharsIntactCount);
+
+  const sendotpResponse = sendOtp(user.phone);
+
+  res.status(200).json({
+    success: true,
+    message: `OTP Send to Your Phone Number ${str}`,
+    user,
+  });
 });
 
 //Login User
@@ -71,6 +145,7 @@ exports.logout = catchAsyncError(async (req, res, next) => {
 
 //Forgot Password
 exports.forgotPassword = catchAsyncError(async (req, res, next) => {
+  console.log(req.body);
   const user = await User.findOne({ email: req.body.email });
   if (!user) {
     return next(new ErrorHander("User not found", 404));
@@ -84,7 +159,7 @@ exports.forgotPassword = catchAsyncError(async (req, res, next) => {
   // const resetPasswordUrl = `${req.protocol}://${req.get(
   //   "host"
   // )}/api/v1/user/password/reset/${resetToken}`;
-  
+
   const resetPasswordUrl = `${process.env.FRONTEND_URL}/user/password/reset/${resetToken}`;
 
   const message = `Your password reset token is :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this email then please ignore it.`;
@@ -190,10 +265,23 @@ exports.updateProfile = catchAsyncError(async (req, res, next) => {
     email: req.body.email,
     phone: req.body.phone,
   };
-//console.log(req.body.avatar,"==========req.body.avatar[0].public_id");
-  if (req.body.avatar !== 'undefined' && req.body.avatar) {
+  const isExist = await User.findById(req.user.id);
+  if (!isExist) {
+    return next(new ErrorHander(`User not found`, 400));
+  }
+
+  const oldPhone = isExist.phone;
+  const newPhone = parseInt(req.body.phone);
+  if (oldPhone !== newPhone) {
+    await User.findByIdAndUpdate(req.user.id, {
+      $set: { "verified.phone": false },
+    });
+  }
+
+  //console.log(req.body.avatar,"==========req.body.avatar[0].public_id");
+  if (req.body.avatar !== "undefined" && req.body.avatar) {
     const user = await User.findById(req.user.id);
-   
+
     const imageId = user.avatar[0].public_id;
     await cloudinary.v2.uploader.destroy(imageId);
 
@@ -255,13 +343,12 @@ exports.getSingleUserDetails = catchAsyncError(async (req, res, next) => {
 
 //Update User Role  ---Admin
 exports.updateUserRole = catchAsyncError(async (req, res, next) => {
-  console.log(req.body,"=======");
+  console.log(req.body, "======== Update User Role");
   const newUserData = {
     name: req.body.name,
     email: req.body.email,
     role: req.body.role,
   };
-
 
   const user = await User.findByIdAndUpdate(req.params.id, newUserData, {
     new: true,
@@ -281,8 +368,7 @@ exports.deleteUser = catchAsyncError(async (req, res, next) => {
 
   //Remove from Cloudinary
   const imageId = user.avatar[0].public_id;
-  await cloudinary.v2.uploader.destroy(imageId)
-
+  await cloudinary.v2.uploader.destroy(imageId);
 
   if (!user) {
     return next(

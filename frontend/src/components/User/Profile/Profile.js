@@ -13,7 +13,6 @@ function Profile() {
 
   useEffect(() => {
     if (!isAuthenticated) {
-      //return <Navigate to="/user/login"/>
       navigate("/user/login");
     }
   }, [isAuthenticated]);
@@ -39,6 +38,27 @@ function Profile() {
               <div>
                 <h4>Email</h4>
                 <p>{user.email}</p>
+              </div>
+              <div>
+                <h4>Phone </h4>
+                <p
+                  className={
+                    user && user.verified.phone === true
+                      ? "greenColor"
+                      : "tooltip"
+                  }
+                >
+                  {user.phone}
+                  <a
+                    href="/user/verify/phone"
+                    hidden={user && user.verified.phone === true ? true : false}
+                  >
+                    {" "}
+                    <span class="tooltiptext">
+                      Verify Your Phone Number
+                    </span>{" "}
+                  </a>
+                </p>
               </div>
               <div>
                 <h4>Joined On</h4>

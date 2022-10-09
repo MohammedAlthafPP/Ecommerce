@@ -81,6 +81,17 @@ export default function Header() {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleProfileMenuOpen = (event) => {
+    navigate(`/user/login`)
+    //setAnchorEl(event.currentTarget);
+    setAnchorEl(null);
+  };
+  const cartHandler = (event) => {
+    navigate(`/cart`)
+    //setAnchorEl(event.currentTarget);
+    setAnchorEl(null);
+  };
+  const wishlistHandler = (event) => {
+    navigate(`/wishlist`)
     //setAnchorEl(event.currentTarget);
     setAnchorEl(null);
   };
@@ -137,23 +148,24 @@ export default function Header() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <Link to="/cart">
+      
     
-      <MenuItem>
+      <MenuItem onClick={cartHandler}>
       
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={cartItems && cartItems.length} color="error">
-            <LocalMallIcon className="mobLocalMallIcon" />
+            <LocalMallIcon className="mobLocalMallIcon"  />
           </Badge>
         </IconButton>
         <p>Bag</p>
       </MenuItem>
-      </Link>
+    
       <MenuItem>
         <IconButton
           size="large"
           aria-label="show 17 new notifications"
           color="inherit"
+          onClick={wishlistHandler}
         >
           <Badge badgeContent={17} color="error">
             {/* <NotificationsIcon /> */}
@@ -212,21 +224,23 @@ export default function Header() {
           </form>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-         <Link to="/cart">
+       
             <IconButton
               size="large"
               aria-label="show 4 new mails"
               color="inherit"
+              onClick={cartHandler}
             >
               <Badge badgeContent={cartItems && cartItems.length} color="error">
                 <LocalMallIcon className="LocalMallIcon"/>
               </Badge>
             </IconButton>
-            </Link>
+           
             <IconButton
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
+              onClick={wishlistHandler}
             >
               <Badge badgeContent={17} color="error">
                 <FavoriteBorderIcon />

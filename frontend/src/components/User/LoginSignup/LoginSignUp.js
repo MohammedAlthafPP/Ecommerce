@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useRef, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./LoginSignUp.css";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
@@ -14,17 +14,17 @@ import {
 } from "../../../redux/actions/userAction";
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
-import profile from "../../../images/Profile.png"
+
 
 
 function LoginSignUp() {
   const dispatch = useDispatch();
   const alert = useAlert();
   const navigate = useNavigate();
-  const location = useLocation();
 
 
-  const { error, loading, isAuthenticated } = useSelector(
+
+  const { error, loading, isAuthenticated ,user:isLogin} = useSelector(
     (state) => state.user
   );
 
@@ -45,7 +45,7 @@ function LoginSignUp() {
   const { name, email, phone, password } = user;
   const [avatar, setAvatar] = useState("https://res.cloudinary.com/althaf-ecommerce/image/upload/v1661379244/avatars/eulivilfagoufudqjc9q.png");
   const [avatarPreview, setAvatarPreview] = useState("/Profile.png");
-  
+ 
   const loginSubmit = (e) => {
     e.preventDefault();
     dispatch(login(loginEmail, loginPassword));
@@ -61,7 +61,11 @@ function LoginSignUp() {
     myForm.set("avatar", avatar);
 
     dispatch(register(myForm));
+    navigate("/user/verify/phone");
   };
+
+
+
 
   const registerDataChange = (e) => {
     if (e.target.name === "avatar") {
@@ -88,7 +92,14 @@ function LoginSignUp() {
     }
 
     if (isAuthenticated) {
-      navigate("/products");
+
+      if(isLogin.role === 'admin'){
+        navigate('/admin/dashboard')
+      } else {
+        navigate("/products");
+      }
+     
+      
       
     }
   }, [dispatch, error, alert, navigate, isAuthenticated]);
@@ -117,7 +128,9 @@ function LoginSignUp() {
         <Loader />
       ) : (
         <Fragment>
+         
           <div className="LoginSignUpContainer">
+          
             <div className="LoginSignUpBox">
               <div>
                 <div className="Login_signUp_toggle">
@@ -192,6 +205,12 @@ function LoginSignUp() {
                     value={phone}
                     onChange={registerDataChange}
                   />
+
+
+
+
+
+
                 </div>
                 <div className="signUpPassword">
                   <LockOpenIcon />
@@ -213,10 +232,12 @@ function LoginSignUp() {
                     onChange={registerDataChange}
                   />
                 </div>
-                <input type="submit" value="Register" className="signUpBtn" />
+                <input type="submit" value="Register" className="signUpBtn" disabled={loading ? true : false}/>
                 {/* //disabled = {loading ? true : false} */}
               </form>
+             
             </div>
+        
           </div>
         </Fragment>
       )}
