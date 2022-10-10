@@ -6,6 +6,7 @@ const {
   getAllCategories,
   updateCategory,
   deleteCategory,
+  getSingleCategory,
 } = require("../controllers/categoryController");
 
 router
@@ -13,10 +14,11 @@ router
   .post(isAuthenticatedUser, authorizesdRoles("admin"), createCategory);
 router
   .route("/admin/categories")
-  .get(isAuthenticatedUser, authorizesdRoles("admin"), getAllCategories);
+  .get(isAuthenticatedUser, getAllCategories);
 router
   .route("/admin/category/:id")
   .put(isAuthenticatedUser, authorizesdRoles("admin"), updateCategory)
-  .delete(isAuthenticatedUser, authorizesdRoles("admin"), deleteCategory);
+  .delete(isAuthenticatedUser, authorizesdRoles("admin"), deleteCategory)
+  .get(isAuthenticatedUser, authorizesdRoles("admin"), getSingleCategory)
 
 module.exports = router;

@@ -26,6 +26,7 @@ function createCategoriesList(categories,parentId = null){
 
 // Create Category
 exports.createCategory = catchAsyncErrors(async (req, res, next) => {
+    console.log(req.body,"===== inside create category");
     const categoryDetails = {
         name : req.body.name,
         slug : slugify(req.body.name)
@@ -67,9 +68,24 @@ exports.getAllCategories = catchAsyncErrors(async(req,res,next) => {
 });
 
 
+//Single Category
+exports.getSingleCategory = catchAsyncErrors(async(req,res,next)=> {
+    const category = await Category.findById(req.params.id);
+    if (!category) {
+        return next(new ErrorHander("Category not found", 404));
+    }
+
+      res.status(200).json({
+        success:true,
+        category
+      })
+
+
+});
+
+
 //Update Category
 exports.updateCategory = catchAsyncErrors(async(req,res,next)=> {
-    //req.params.id
     let category = await Category.findById(req.params.id);
     if (!category) {
         return next(new ErrorHander("Category not found", 404));

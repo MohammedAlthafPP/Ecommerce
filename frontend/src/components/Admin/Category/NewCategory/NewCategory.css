@@ -1,0 +1,124 @@
+.newProductContainer{
+    width: 100%;
+    box-sizing: border-box;
+    background-color: rgb(221, 221, 221);
+    border-left: 1px solid rgba(0, 0, 0, 0.158);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+.newProductContainer > h1 {
+    color: rgba(0, 0, 0, 0.733);
+    font: 300 2rem var(--Roboto-font-family);
+    text-align: center;
+}
+  .createCategoryForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    padding: 3vmax;
+    justify-content: space-evenly;
+    height: 50%;
+    width: 40vh;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.267);
+  }
+
+  
+
+  .createCategoryForm > div {
+    display: flex;
+    width: 100%;
+    align-items: center;
+  }
+  .createCategoryForm > div > input,
+  .createCategoryForm > div > select{
+    padding: 1vmax 4vmax;
+    padding-right: 1vmax;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.267);
+    border-radius: 4px;
+    font: 300 0.9vmax cursive;
+    outline: none;
+  }
+  
+ 
+  .createCategoryForm > div > svg {
+    position: absolute;
+    transform: translateX(1vmax);
+    font-size: 1.6vmax;
+    color: rgba(0, 0, 0, 0.623);
+  }
+
+  #createCategoryBtn {
+    border: none;
+    background-color: var(--primary-color);
+    color: white;
+    font: 300 0.9vmax;
+    font-family: var(--Roboto-font-family);
+    width: 100%;
+    padding: 0.8vmax;
+    cursor: pointer;
+    transition: all 0.5s;
+    border-radius: 4px;
+    outline: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.219);
+  }
+  
+
+  #createCategoryBtn:hover {
+    background-color: rgb(179, 66, 46);
+  }
+  
+
+  
+  @media screen and (max-width: 1024px) {
+   
+  
+  }
+  @media screen and (max-width: 768px) {
+    
+    
+    .createCategoryForm > div > input,
+    .createCategoryForm > div > select {
+      padding: 1.5vmax 5vmax;
+      font: 300 1.7vmax cursive;
+    }
+    
+    .createCategoryForm > div > svg {
+      font-size: 2.3vmax;
+    }
+ 
+   
+    
+  
+  }
+  
+  @media screen and (max-width: 600px) {
+    .createCategoryForm {
+      padding: 5vmax;
+    }
+    
+    .createCategoryForm > div > input,
+    .createCategoryForm > div > select {
+      padding: 2.5vmax 5vmax;
+      font: 300 1.7vmax cursive;
+    }
+  
+    .createCategoryForm > div > svg {
+      font-size: 2.8vmax;
+    }
+    .loginForm > a {
+      font: 500 2.5vmax "Gill Sans";
+    }
+  
+   
+    
+    #createCategoryBtn {
+      font: 300 1.9vmax var(--Roboto-font-family);
+      padding: 1.8vmax;
+    }
+  }
+  

@@ -1,0 +1,17 @@
+.categoryListContainer{
+    width: 100%;
+    box-sizing: border-box;
+    background-color: rgb(255, 255, 255);
+    border-left: 1px solid rgba(0, 0, 0, 0.158);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+#categoryListHeading {
+    font: 400 2rem var(--Roboto-font-family);
+    padding: 0.5vmax;
+    box-sizing: border-box;
+    color: rgba(0, 0, 0, 0.637);
+    transition: all 0.5s;
+    text-align: center;
+}

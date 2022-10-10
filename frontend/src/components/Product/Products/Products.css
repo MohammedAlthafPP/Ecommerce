@@ -1,5 +1,5 @@
 .productsHeading {
-  margin: 2vmax auto;
+  margin: 1vmax auto;
   width: 15vw;
   border-bottom: 1px solid rgba(0, 0, 0, 0.171);
   padding: 2vmax;
@@ -19,7 +19,8 @@
   flex-wrap: wrap;
   justify-content: center;
   max-width: 100%;
-  min-height: 30vh;
+  min-height: 70vh;
+  height: fit-content;
 }
 
 /*  ---------------------------------- Pagination.css  -------------------------------------*/
