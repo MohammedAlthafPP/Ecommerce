@@ -52,13 +52,14 @@ exports.createWishlist = catchAsyncErrors(async (req, res, next) => {
 
 // Get Wishlist Items
 exports.getUserWishlistItems = catchAsyncErrors(async (req, res, next) => {
-  const wishlistItems = await Wishlist.findOne({
+  const wishlists = await Wishlist.findOne({
     userEmail: req.user.email,
   }).populate("products.product");
 
-  if (!wishlistItems) {
+  if (!wishlists) {
     return next(new ErrorHander("Wishlist not found", 404));
   }
+  const wishlistItems = wishlists.products.map((product)=>product.product)
   res.status(201).json({
     success: true,
     wishlistItems,

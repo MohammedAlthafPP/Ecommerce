@@ -22,6 +22,10 @@ import {
   Rating,
 } from "@mui/material";
 import { NEW_REVIEW_RESET } from "../../../constants/productConstants";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { addItemsToWishlist } from "../../../redux/actions/wishlistAction";
+import { ADD_TO_WISHLIST_RESET } from "../../../constants/wishListConstants";
+import { ADD_TO_CART_RESET } from "../../../constants/cartConstants";
 
 function ProductDetails() {
   const { id } = useParams();
@@ -30,11 +34,12 @@ function ProductDetails() {
   const navigate = useNavigate();
 
   const { isAuthenticated } = useSelector((state) => state.user);
-  const { message } = useSelector((state) => state.cart);
+  const { message,success:cartSuccess,error:cartError } = useSelector((state) => state.cart);
   const { product, loading, error } = useSelector(
     (state) => state.productDetails
   );
-  const {success,error:reviewError} = useSelector((state) => state.newReview)
+  const {success,error:reviewError} = useSelector((state) => state.newReview);
+  const { loading:newWishLoading,error:newWishlistError,message:newWishlistMsg,success:newWishlist } = useSelector((state) => state.newWishlist);
 
   useEffect(() => {
     if (error) {
@@ -45,9 +50,25 @@ function ProductDetails() {
       alert.error(reviewError.message);
       dispatch(clearErrors());
     }
+    if (newWishlistError) {
+      alert.error(newWishlistError.message);
+      dispatch(clearErrors());
+    }
+    if (cartError) {
+      alert.error(cartError.message);
+      dispatch(clearErrors());
+    }
     if(success) {
       alert.success("Review Submited Successfully");
       dispatch({type: NEW_REVIEW_RESET})
+    }
+    if(cartSuccess) {
+      alert.success(message);
+      dispatch({type: ADD_TO_CART_RESET})
+    }
+    if(newWishlist) {
+      alert.success(newWishlistMsg);
+      dispatch({type: ADD_TO_WISHLIST_RESET})
     }
     if(id.length === 24){
       dispatch(getProductDetails(id));
@@ -57,7 +78,7 @@ function ProductDetails() {
     }
 
     
-  }, [dispatch, id, error, alert,reviewError,success,navigate]);
+  }, [dispatch, id, error, alert,reviewError,success,navigate,newWishlist,newWishlistError,cartSuccess,]);
 
   const options = {
     size: "large",
@@ -85,6 +106,7 @@ function ProductDetails() {
 
   const addItemsToCartHandler = () => {
     if (isAuthenticated) {
+      if (product.stock <= 0) return alert.info("The stock has run out");
       dispatch(addItemsToCart(id, quantity));
       dispatch(myCartItems());
       let info = message ? message : `Item Added To Cart`;
@@ -92,6 +114,17 @@ function ProductDetails() {
     } else {
       alert.info("Please Login");
     }
+  };
+
+  const addToWishlistHandler = (id) => {
+    if (isAuthenticated) {
+      if (product.stock <= 0) return alert.info("The stock has run out"); 
+      dispatch(addItemsToWishlist(id))
+    }else {
+      alert.info("Please Login");
+    }
+    
+    
   };
 
   const submitReviewToggle = () => {
@@ -112,7 +145,7 @@ function ProductDetails() {
 
   return (
     <Fragment>
-      {loading ? (
+      {loading || newWishLoading ? (
         <Loader />
       ) : (
         <>
@@ -151,12 +184,21 @@ function ProductDetails() {
                     <button onClick={increaseQuantity}>+</button>
                   </div>
 
+                
                   <button
                     disabled={product.stock < 1 ? true : false}
                     onClick={addItemsToCartHandler}
                   >
                     Add to Cart
                   </button>
+                  <button
+                    disabled={product.stock < 1 ? true : false}
+                    onClick={()=> addToWishlistHandler(product._id)}
+                  >
+                    Add to Wishlist
+                  </button>
+
+               
                 </div>
                 <p>
                   Status:

@@ -23,6 +23,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import PaymentPage from "./pages/Order/PaymentPage";
 import ErrorPage from "./components/layout/ErrorPage/ErrorPage";
 import { toast } from "react-hot-toast";
+import WishlistPage from "./pages/Product/WishlistPage";
 
 
 function App() {
@@ -92,6 +93,7 @@ function App() {
         <Route path="/sad" element={<Loader />} />
         <Route path="/product/:id" element={<ProductDeatilsPage />} />
         <Route path="/cart" element={<CartPage />} />
+        <Route path="/wishlist" element={<WishlistPage />} />
         <Route path="*" element={<ErrorPage />} />
         <Route path="/404" element={<ErrorPage />} />
         <Route path="*" element={<Navigate to="/404" replace />} />

@@ -4,6 +4,7 @@ import { allCategoriesReducer, categoryDetailsReducer, categoryReducer, newCateg
 import { allOrdersReducer, myOrdersReducer, newOrderReducer, orderDetailsReducer, orderReducer } from "./reducers/orderReducer";
 import { newProductReducer, newReviewReducer, productDetailsReducer, productReducer, productReviewsReducer, productsReducer, reviewReducer,} from "./reducers/productReducers";
 import { allUsersReducer, forgotPasswordReducer, profileReducer, userDetailsReducer, userReducer, verifyUserReducer } from "./reducers/userReducer";
+import { deleteWishlistItemReducer, myWishlistReducer, newWishlistReducer } from "./reducers/wishlistReducer";
 
 
 
@@ -38,6 +39,10 @@ const Store = configureStore({
     allCategories : allCategoriesReducer,
     categoryDetails : categoryDetailsReducer,
     category : categoryReducer,
+    newWishlist :newWishlistReducer,
+    myWishlist : myWishlistReducer,
+    deleteWishlist : deleteWishlistItemReducer,
+
 
     
     

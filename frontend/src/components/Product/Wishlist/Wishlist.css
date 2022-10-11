@@ -1,3 +1,25 @@
+.detailsBlock-wishlistbtn > button {
+    border: none;
+    cursor: pointer;
+    color: white;
+    transition: all 0.5s;
+    background-color: var(--primary-color);
+    font: 500 0.7vmax var(--Roboto-font-family);
+    border-radius: 20px;
+    padding: 0.5vmax 2vmax;
+    margin: 1vmax;
+    outline: none;
+   
+
+}
+.detailsBlock-wishlistbtn {
+    display: flex;
+    align-items: center;
+    height: 8vmax;
+    justify-content: end;
+
+}
+
 .emptyCart{
     height: 50vh;
     padding: 10vmax;
@@ -28,7 +50,7 @@
 
 }
 
-.cartPage{
+.cartPageabcdss{
     padding: 5vmax;
     min-height: 60vh;
 }
@@ -132,6 +154,12 @@
 }
 
 @media screen and (max-width: 600px){
+    .detailsBlock-wishlistbtn > button {
+        padding: 0.6vmax 3vmax;
+        width: 22vw;
+        font: 500 2vmax var(--Roboto-font-family);
+        margin-top: 6vmax;
+    }
     .cartPage{
         padding: 3vmax;
         min-height: 60vh;

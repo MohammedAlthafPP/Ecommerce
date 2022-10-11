@@ -33,11 +33,13 @@ export const cartReducer = (state = {}, action) => {
         loading: false,
         success: action.payload.success,
         cartItems: action.payload.cartItems,
+        message :action.payload.message
       };
       case ADD_TO_CART_RESET:
       return {
         ...state,
         success:false,
+        message:false
       };
 
     case ADD_TO_CART_FAIL:

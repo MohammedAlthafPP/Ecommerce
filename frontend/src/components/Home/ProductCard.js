@@ -1,11 +1,42 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { Fragment, useEffect } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Rating } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { useAlert } from "react-alert";
+import { addItemsToWishlist,clearErrors } from "../../redux/actions/wishlistAction";
+import { ADD_TO_WISHLIST_RESET } from "../../constants/wishListConstants";
+import { ADD_TO_CART_RESET } from "../../constants/cartConstants";
+import { addItemsToCart } from "../../redux/actions/cartAction";
 
 function ProductCard({ product }) {
+
+  const dispatch = useDispatch();
+  const alert = useAlert();
+  const navigate = useNavigate();
+
+  const { loading,error,message,success } = useSelector((state) => state.newWishlist);
+  const { isAuthenticated } = useSelector((state) => state.user);
+  const { message:cartMsg,success:newCart,error:cartError } = useSelector((state) => state.cart);
+
   const addToWishlistHandler = (id) => {
-    console.log(id, "=======id addToWishlistHandler");
+    if (isAuthenticated) {
+      if (product.stock <= 0) return alert.info("The stock has run out");
+      dispatch(addItemsToWishlist(id))
+
+    }else {
+      alert.info("Please Login");
+    }
+  
+  };
+
+  const addItemsToCartHandler = (id,quantity=1) => {
+    if (isAuthenticated) {
+      if (product.stock <= 0) return alert.info("The stock has run out");
+      dispatch(addItemsToCart(id, quantity));
+    } else {
+      alert.info("Please Login");
+    }
   };
 
   // const options = {
@@ -17,6 +48,28 @@ function ProductCard({ product }) {
   //   isHalf: true,
   // };
 
+  useEffect(() => {
+    if (error) {
+      alert.error(error.message);
+      dispatch(clearErrors());
+    }
+    if (cartError) {
+      alert.error(cartError.message);
+      dispatch(clearErrors());
+    }
+    if(success) {
+      alert.success(message);
+      dispatch({type: ADD_TO_WISHLIST_RESET})
+    }
+    if(newCart) {
+      alert.success(cartMsg);
+      dispatch({type: ADD_TO_CART_RESET})
+    }
+
+  }, [dispatch,error,alert,message,success,newCart])
+  
+
+
   const options = {
     size: "small",
     value: product.ratings,
@@ -25,6 +78,9 @@ function ProductCard({ product }) {
   };
 
   return (
+   
+
+    
     <Link className="productCard" to={`/product/${product._id}`}>
       <img src={product.images[0].url} alt="" />
       <p>{product.name}</p>
@@ -36,7 +92,7 @@ function ProductCard({ product }) {
         </span>
       </div>
       <span> &#8377; {product.price}</span>
-
+     
       <div className="cartButton">
         <span
           className="button-content"
@@ -51,12 +107,13 @@ function ProductCard({ product }) {
           </svg>
         </span>
 
-        <button>
+        <button onClick={() => addItemsToCartHandler(product._id)}>
           <ShoppingCartIcon />
           Add to cart
         </button>
       </div>
-    </Link>
+      </Link>
+   
   );
 }
 
