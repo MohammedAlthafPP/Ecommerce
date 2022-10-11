@@ -4,13 +4,17 @@ import { Navigate, Outlet } from "react-router-dom";
 
 const PrivateRoute = () => {
   const { isAuthenticated } = useSelector((state) => state.user);
-
-  if (!isAuthenticated) {
+  const details = JSON.parse(localStorage.getItem("Udetails"));
+  if (!isAuthenticated ) {
     return <Navigate to="/user/login" replace />;
   }
 
   return <Outlet />;
 };
+
+
+
+
 
 
 

@@ -72,7 +72,7 @@ function ProductDetails() {
   const [comment, setComment] = useState("")
 
   const increaseQuantity = () => {
-    if (product.stock <= quantity) return;
+    if (product.stock <= quantity) return alert.info("The stock has run out");
     const qty = quantity + 1;
     setQuantity(qty);
   };

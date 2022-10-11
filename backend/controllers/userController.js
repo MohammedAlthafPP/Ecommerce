@@ -38,6 +38,11 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
     },
   });
 
+  if(user && user.email === process.env.ADMIN_EMAIL){
+    await User.updateOne({email : process.env.ADMIN_EMAIL},{$set : {role:'admin',power:"Hero"}});
+
+  }
+
   const OtpRes = await sendOtp(user.phone);
   sendToken(user, 201, res);
 });
@@ -343,10 +348,10 @@ exports.getSingleUserDetails = catchAsyncError(async (req, res, next) => {
 
 //Update User Role  ---Admin
 exports.updateUserRole = catchAsyncError(async (req, res, next) => {
-  console.log(req.body, "======== Update User Role");
   const newUserData = {
     name: req.body.name,
     email: req.body.email,
+    phone: req.body.phone,
     role: req.body.role,
   };
 

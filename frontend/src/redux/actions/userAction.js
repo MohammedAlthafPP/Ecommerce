@@ -52,6 +52,9 @@ export const login = (email, password) => async (dispatch) => {
     const config = { headers: { "Content-Type": "application/json" } };
 
     const { data } = await axios.post(`/login`, { email, password }, config);
+    if (data&&data.user) {
+      await localStorage.setItem("Udetails", JSON.stringify(data.user));
+    }
     dispatch({ type: LOGIN_SUCCESS, payload: data.user });
   } catch (error) {
     dispatch({ type: LOGIN_FAIL, payload: error.response.data });
@@ -66,6 +69,10 @@ export const register = (userData) => async (dispatch) => {
     const config = { headers: { "Content-Type": "multipart/form-data" } };
 
     const { data } = await axios.post(`/register`, userData, { config });
+
+    if (data&&data.user) {
+      await localStorage.setItem("Udetails", JSON.stringify(data.user));
+    }
 
     dispatch({ type: REGISTER_USER_SUCCESS, payload: data.user });
   } catch (error) {
@@ -222,7 +229,7 @@ export const updateUser = (id, userData) => async (dispatch) => {
 
     const { data } = await axios.put(`/admin/user/${id}`, userData, config);
 
-    dispatch({ type: UPDATE_USER_SUCCESS, payload: data.success });
+    dispatch({ type: UPDATE_USER_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: UPDATE_USER_FAIL,

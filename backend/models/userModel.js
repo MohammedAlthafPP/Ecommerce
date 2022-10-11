@@ -50,6 +50,10 @@ const userSchema = new mongoose.Schema({
     type:String,
     default : "user"
   },
+  power : {
+    type:String,
+    default: null,
+  },
   joinedOn:{
     type: Date,
     default: Date.now()

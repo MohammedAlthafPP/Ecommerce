@@ -12,6 +12,7 @@ import UpdateUserPage from "./UpdateUserPage";
 import ProductReviewsPage from "./ProductReviewsPage";
 import CategoryListPage from "./CategoryListPage.js";
 import NewCategoryPage from "./NewCategoryPage.js";
+import UpdateCategoryPage from "./UpdateCategoryPage.js";
 
 
 import ErrorPage from "../../components/layout/ErrorPage/ErrorPage";
@@ -31,6 +32,7 @@ function AdminPages() {
       <Route path="/reviews" element={<ProductReviewsPage />} />
       <Route path="/categories" element={<CategoryListPage />} />
       <Route path="/category" element={<NewCategoryPage />} />
+      <Route path="/category/:id" element={<UpdateCategoryPage />} />
 
 
 

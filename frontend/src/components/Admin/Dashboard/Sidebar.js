@@ -11,16 +11,20 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleIcon from "@mui/icons-material/People";
 import RateReviewIcon from "@mui/icons-material/RateReview";
 import AddIcon from "@mui/icons-material/Add";
+import { useSelector } from "react-redux";
 // import { TreeView, TreeItem } from "@mui/lab";
 
 function Sidebar() {
+
+  const {user} = useSelector((state) => state.user);
+
   return (
     <div className="sidebar">
       <Link to="/">
         <img src={logo} alt="E-Buy" />
       </Link>
 
-      <Link to="/admin/dashboard">
+      <Link to="/admin/dashboard" className={user&&user.power === 'Hero' ? "heroClass" : "userClass" }>
         <p>
           <DashboardIcon /> Dashboard
         </p>
@@ -65,12 +69,12 @@ function Sidebar() {
           </TreeItem>
         </TreeView>
       </Link>
-      <Link to="/admin/orders">
+      <Link to="/admin/orders"  className={user&&user.power === 'Hero' ? "heroClass" : "userClass" }>
         <p>
           <ListAltIcon /> Orders
         </p>
       </Link>
-      <Link to="/admin/users">
+      <Link to="/admin/users" className={user&&user.power === 'Hero' ? "heroClass" : "userClass" }>
         <p>
           <PeopleIcon /> Users
         </p>

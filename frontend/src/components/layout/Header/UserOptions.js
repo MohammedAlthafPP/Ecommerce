@@ -8,6 +8,7 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import HomeIcon from '@mui/icons-material/Home';
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {useAlert} from "react-alert"
@@ -22,6 +23,7 @@ function UserOptions({ user }) {
   const alert = useAlert()
 
   const options = [
+    { icon: <HomeIcon />, name: "Home", func: home },
     { icon: <ListAltIcon />, name: "Orders", func: order },
      { icon: <ShoppingCartIcon style={{color:cartItems && cartItems.length > 0 ? "tomato" : "unset" }} />, name: `Cart(${cartItems && cartItems.length})`, func: cart },
     { icon: <PersonIcon />, name: "Profile", func: account },
@@ -37,7 +39,15 @@ function UserOptions({ user }) {
   }
 
   function dashboard() {
-    navigate("/admin/dashboard");
+    if(user && user.roele === 'admin' && user.power === 'Hero'){
+      navigate("/admin/dashboard");
+    }else {
+      navigate("/admin/products");
+    }
+    
+  }
+  function home() {
+    navigate("/");
   }
   function order() {
     navigate("/order/orders");

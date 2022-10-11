@@ -5,6 +5,7 @@ import {
   getAllCategories,
   craeteCategory,
   clearErrors,
+  deleteCategory,
 } from "../../../../redux/actions/categoryAction";
 import { useAlert } from "react-alert";
 import MetaData from "../../../layout/MetaData";
@@ -16,15 +17,16 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import LaunchIcon from '@mui/icons-material/Launch';
 import { useEffect } from "react";
-import { DELETE_PRODUCT_RESET } from "../../../../constants/productConstants";
+import { DELETE_CATEGORY_RESET } from "../../../../constants/categoryConstants";
 import Loader from "../../../layout/Loader/Loader";
+import swal from 'sweetalert';
 
 function CategoryList() {
   const dispatch = useDispatch();
   const alert = useAlert();
   const navigate = useNavigate()
   const {loading, error, categoryList} = useSelector((state)=> state.allCategories);
-  const { error:deleteError, isDeleted} = useSelector((state)=> state.product);
+  const { error:deleteError, isDeleted,message} = useSelector((state)=> state.category);
 
 
   const deleteProductHandler = (id) => {
@@ -42,9 +44,8 @@ function CategoryList() {
     }
 
     if(isDeleted) {
-      alert.success("Product Deleted Successfully");
-      navigate(`/admin/products`);
-      dispatch({type:DELETE_PRODUCT_RESET});
+      alert.success(message);
+      dispatch({type:DELETE_CATEGORY_RESET});
 
       
     }
@@ -59,13 +60,56 @@ function CategoryList() {
     for(let category of categories){
       categoryArray.push(
         <li key={category.name} >
-          {category.name} <span><LaunchIcon/></span>
+          {category.name} <span onClick={()=> actionHandler(category._id,category.name)}><LaunchIcon/></span>
           {category.children.length > 0 ?  (<ul>{renderCategories(category.children)}</ul>) : null}
         </li>
       )
     }
     return categoryArray
+  };
+
+
+
+  const actionHandler = (id,name) => {
+    swal("What do you want to do?", {
+      buttons: {
+        Edit: true,
+        Delete: true,
+        cancel: true,
+      },
+    })
+    .then((value) => {
+      switch (value) {
+     
+        case "Delete":
+          swal({
+            title: "Are you sure?",
+            text: `Once deleted, you will not be able to recover this ${name} Category !`,
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+              dispatch(deleteCategory(id))
+            } else {
+              
+            }
+          });
+
+          break;
+     
+        case "Edit":
+         navigate(`/admin/category/${id}`);
+          break;
+     
+        default:
+          
+      }
+    });
   }
+
+ 
   
 
 
@@ -87,6 +131,14 @@ function CategoryList() {
               {renderCategories(categoryList&&categoryList)}
             </ul>
            </div>
+
+           {/* <div>
+            <ul>
+              {renderCategories(categoryList&&categoryList)}
+            </ul>
+           </div> */}
+
+
           
          </div>
        </div>

@@ -47,7 +47,7 @@ function Cart() {
  
 
   const increaseQuantity = (id, quantity, stock) => {
-    if (stock <= quantity) return;
+    if (stock <= quantity) return alert.info("The stock has run out");
     let newQty = quantity + 1;
     dispatch(addItemsToCart(id, newQty));
     

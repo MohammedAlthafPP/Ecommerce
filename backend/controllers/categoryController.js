@@ -26,7 +26,6 @@ function createCategoriesList(categories,parentId = null){
 
 // Create Category
 exports.createCategory = catchAsyncErrors(async (req, res, next) => {
-    console.log(req.body,"===== inside create category");
     const categoryDetails = {
         name : req.body.name,
         slug : slugify(req.body.name)

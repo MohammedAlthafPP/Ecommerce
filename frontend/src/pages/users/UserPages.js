@@ -30,17 +30,21 @@ function UserPages() {
         <Route path="" element={<UpdatePasswordPage />} />
       </Route>
 
-      
-       <Route path="/password/forgot" element={<ForgotPasswordPage />} />
-       <Route path="/password/reset/:token" element={<ResetPasswordPage />} />
-       <Route path="/verify/phone" element={<VerifyPhoneNumberPage />} />
+       <Route path="/verify/phone" element={<PrivateRoute />}>
+        <Route path="" element={<VerifyPhoneNumberPage />} />
+      </Route>
 
        <Route path="/shipping" element={<PrivateRoute />}>
         <Route path="" element={<CreateShippingPage />} />
       </Route>
 
+      <Route path="/password/forgot" element={<ForgotPasswordPage />} />
+       <Route path="/password/reset/:token" element={<ResetPasswordPage />} />
+
       <Route path="*" element={<ErrorPage/>} />
 
+      {/* <Route path="/verify/phone" element={<VerifyPhoneNumberPage />} /> */}
+      
     </Routes>
   );
 }

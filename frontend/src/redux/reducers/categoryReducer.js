@@ -152,11 +152,13 @@ export const categoryReducer = (state = {}, action) => {
             return {
                 ...state,
                 isUpdated : false,
+                message: null,
             };
         case DELETE_CATEGORY_RESET : 
             return {
                 ...state,
                 isDeleted : false,
+                message: null,
             };
         case CLEAR_ERRORS : 
             return {

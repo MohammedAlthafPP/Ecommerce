@@ -14,7 +14,7 @@ router
   .post(isAuthenticatedUser, authorizesdRoles("admin"), createCategory);
 router
   .route("/admin/categories")
-  .get(isAuthenticatedUser, getAllCategories);
+  .get( getAllCategories);
 router
   .route("/admin/category/:id")
   .put(isAuthenticatedUser, authorizesdRoles("admin"), updateCategory)

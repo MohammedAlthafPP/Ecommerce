@@ -26,7 +26,7 @@ function Products() {
   const { keyword } = useParams();
   const dispatch = useDispatch();
   const alert = useAlert();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [currentPage, setCurrentPage] = useState(1);
   const [price, setPrice] = useState([0, 250000]);
@@ -64,22 +64,43 @@ function Products() {
 
   let count = filteredProductsCount;
 
-  const createCategoryList = (categories, options = []) => {
-    if (categories) {
-      for (let category of categories) {
-        options.push({ value: category._id, name: category.name });
-        if (category && category.children.length > 0) {
-          createCategoryList(category.children, options);
-        }
-      }
-      return options;
+  // const createCategoryList = (categories, options = []) => {
+  //   if (categories) {
+  //     for (let category of categories) {
+  //       options.push({ value: category._id, name: category.name });
+  //       if (category && category.children.length > 0) {
+  //         createCategoryList(category.children, options);
+  //       }
+  //     }
+  //     return options;
+  //   }
+  // };
+
+  const renderCategories = (categories) => {
+    let categoryArray = [];
+
+    for (let category of categories) {
+      categoryArray.push(
+        <li key={category.name}  >
+          {category.parentId ? (
+            <a href={category.name} onClick={() => setCategory(category.name)}>{category.name}</a>
+          ) : (
+            <span onClick={() => setCategory(category.name)} >{category.name}</span>
+          )}
+
+          {category.children.length > 0 ? (
+            <ul>{renderCategories(category.children)}</ul>
+          ) : null}
+        </li>
+      );
     }
+    return categoryArray;
   };
 
-  const allproductsHandler = () =>{
-    window. location. reload() 
-    navigate('/products')
-  }
+  const allproductsHandler = () => {
+    window.location.reload();
+    navigate("/products");
+  };
 
   return (
     <Fragment>
@@ -90,10 +111,18 @@ function Products() {
           <MetaData title={`PRODUCTS -- ${process.env.REACT_APP_SITE_NAME}`} />
           <h2 className="productsHeading">Products</h2>
           <div className="products">
-            {products &&
-              products.map((product, index) => (
-                <ProductCard product={product} key={index} />
-              ))}
+
+            {filteredProductsCount&&filteredProductsCount ? (
+                products &&
+                  products.map((product, index) => (
+                    <ProductCard product={product} key={index} />
+                  ))
+            ) : (
+              <h4 className="productsHeadingForNoRecord">We will have products soon...</h4>
+            )}
+          
+
+
           </div>
 
           <div className="filterBox">
@@ -107,7 +136,7 @@ function Products() {
               max={250000}
             />
 
-            <Typography>Categories</Typography>
+            {/* <Typography>Categories</Typography> */}
             {/* <ul className="categoryBox">
               {categories.map((category) => (
                 <li
@@ -120,7 +149,7 @@ function Products() {
               ))}
             </ul> */}
 
-            <ul className="categoryBox">
+            {/* <ul className="categoryBox">
               <li className="category-link" onClick={allproductsHandler}>All</li>
               {categoryList &&
                 createCategoryList(categoryList).map((option) => (
@@ -132,8 +161,17 @@ function Products() {
                     {option.name}
                   </li>
                 ))}
+            </ul> */}
+
+            <div className="categoryContainer">
+            <ul >
+              {categoryList && categoryList.length > 0
+                ? renderCategories(categoryList)
+                : null}
             </ul>
 
+            </div>
+           
 
             <fieldset>
               <Typography component="legend">Ratings Above</Typography>

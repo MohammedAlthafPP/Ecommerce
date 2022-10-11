@@ -81,18 +81,33 @@ export default function Header() {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleProfileMenuOpen = (event) => {
-    navigate(`/user/login`);
-    //setAnchorEl(event.currentTarget);
+    const details = JSON.parse(localStorage.getItem("Udetails"));
+    if (details && Object.keys(details).length === 0) {
+    } else {
+      if (details && details.email) {
+        navigate(`/user/account`);
+       
+      }else {
+        navigate(`/user/login`);
+      }
+    }
+
+
+
+
+
+
+    setAnchorEl(event.currentTarget);
     setAnchorEl(null);
   };
   const cartHandler = (event) => {
     navigate(`/cart`);
-    //setAnchorEl(event.currentTarget);
+    setAnchorEl(event.currentTarget);
     setAnchorEl(null);
   };
   const wishlistHandler = (event) => {
     navigate(`/wishlist`);
-    //setAnchorEl(event.currentTarget);
+    setAnchorEl(event.currentTarget);
     setAnchorEl(null);
   };
 
@@ -197,7 +212,7 @@ export default function Header() {
             aria-label="open drawer"
             sx={{ mr: 2 }}
           >
-            <MenuIcon />
+            {/* <MenuIcon /> */}
           </IconButton>
           <Typography
             variant="h6"

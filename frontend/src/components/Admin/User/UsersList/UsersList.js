@@ -69,7 +69,7 @@ function UsersList() {
             <EditIcon/>
           </Link> */}
           <Button onClick={() => userEditHandler(params.getValue(params.id,"id"))}>
-            <EditIcon/>
+            <EditIcon />
           </Button>
           {/* <Button onClick={() => deleteUserHandler(params.getValue(params.id,"id"))}> */}
           <Button onClick={() => handleShow(params.getValue(params.id,"id"),params.getValue(params.id,"name"))}>

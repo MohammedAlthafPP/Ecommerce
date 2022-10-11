@@ -91,17 +91,19 @@ function LoginSignUp() {
       dispatch(clearErrors());
     }
 
-    if (isAuthenticated) {
+    
 
-      if(isLogin.role === 'admin'){
+      if(isLogin&&isLogin.role === 'admin' && isLogin.power === 'Hero'){
         navigate('/admin/dashboard')
-      } else {
+      }else if(isLogin&&isLogin.role === 'admin'  && isLogin.power === null){
+        navigate('/admin/products')
+      }else if(isLogin&&isLogin.role === 'user' && isLogin.power === null) {
         navigate("/products");
       }
      
       
       
-    }
+    
   }, [dispatch, error, alert, navigate, isAuthenticated]);
 
   const switchTabs = (e, tab) => {

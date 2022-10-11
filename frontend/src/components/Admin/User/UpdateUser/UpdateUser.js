@@ -18,46 +18,20 @@ function UpdateUser() {
   const {id} =useParams();
 
   const {user,error} = useSelector((state)=> state.userDetails);
-  console.log( user,"=========== User");
-  const { error:updateError, isUpdated,loading} = useSelector((state)=> state.profile);
+  const { error:updateError, isUpdated,loading,message} = useSelector((state)=> state.profile);
 
-    const [name, setName] = useState(user&&user.name)
-    const [email, setEmail] = useState(user&& user.email)
-    const [role, setRole] = useState(user&& user.email)
-    // const [name, setName] = useState("")
-    // const [email, setEmail] = useState("")
-    // const [role, setRole] = useState("")
+    const [name, setName] = useState("")
+    const [email, setEmail] = useState("")
+    const [phone, setPhone] = useState("")
+    const [role, setRole] = useState("")
+    const [emailVerified, setEmailVerified] = useState("")
+    const [phoneVerified, setPhoneVerified] = useState("")
 
   const userId = id;
 
 
-  console.log(user && user._id === userId,"==user && user._id === userId");
-  console.log(user && typeof user._id ,"=========",typeof userId);
 
   useEffect(() => {
-    // if(user && user._id !== userId){
-    //     dispatch(getUserDetails(userId))
-    //     console.log("In the &&&&&&&==================");
-    // } else {
-    // console.log(" else ########################$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-    //     setName(user && user.name);
-    //     setEmail(user && user.email);
-    //     setRole(user && user.role);  
-    // }
-
-  //   if(user && user._id !== userId){
-  //     dispatch(getUserDetails(userId))
-  //     console.log("In the &&&&&&&==================");
-  // } 
-  // if(user &&  userId) {
-  // console.log(" else ########################$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-  //     setName(user.name);
-  //     setEmail(user.email);
-  //     setRole(user.role);  
-     
-  // }
-
- 
     if(error){
       alert.error(error.message);
       dispatch(clearErrors())
@@ -69,22 +43,51 @@ function UpdateUser() {
     }
 
     if(isUpdated){
-      alert.success("User Updated Successfully");
+      alert.success(message);
+      async function removeUUser() {
+        await localStorage.removeItem("UUser");
+      }
+      removeUUser();
       navigate('/admin/users');
       dispatch({type:UPDATE_USER_RESET});
     }
 
     dispatch(getUserDetails(userId))
   }, [dispatch,alert,error,isUpdated,navigate,updateError,userId,useParams])
- 
 
-  console.log(name,email,role,"=========== name,email,role");
+
+
+  useEffect(() => {
+    if (user) {
+      window.localStorage.setItem(
+        "UUser",
+        JSON.stringify(user && user)
+      );
+    }
+    const UserDetails = JSON.parse(localStorage.getItem("UUser"));
+
+    if (UserDetails && Object.keys(UserDetails).length === 0) {
+    } else {
+      if (UserDetails && UserDetails._id === userId) {
+        setName(UserDetails && UserDetails.name);
+        setEmail(UserDetails && UserDetails.email);
+        setRole(UserDetails && UserDetails.role); 
+        setPhone(UserDetails && UserDetails.phone); 
+        setEmailVerified(UserDetails && UserDetails.verified.email); 
+        setPhoneVerified(UserDetails && UserDetails.verified.phone); 
+
+      }
+    }
+  }, [user]);
+
+
   const updateUserSubmitHandler = (e) => {
     e.preventDefault();
 
     const myForm = new FormData();
     myForm.set("name",name);
     myForm.set("email",email);
+    myForm.set("phone",phone);
     myForm.set("role",role);
  
     dispatch(updateUser(userId,myForm))
@@ -191,6 +194,7 @@ function UpdateUser() {
        required
        value={name}
        onChange={(e) => setName(e.target.value)}
+       readOnly
        />
      </div>
 
@@ -202,9 +206,23 @@ function UpdateUser() {
        required
        value={email}
        onChange={(e) => setEmail(e.target.value)}
+       readOnly
+       className={emailVerified&&emailVerified === true ? "greenColor" : "redColor"}
        />
      </div>
 
+     <div>
+       <MailOutlineIcon/>
+       <input
+       type="number"
+       placeholder='Phone Number'
+       required
+       value={phone}
+       onChange={(e) => setPhone(e.target.value)}
+       readOnly
+       className={phoneVerified&&phoneVerified === true ? "greenColor" : "redColor"}
+       />
+     </div>
 
      <div>
        <VerifiedUserIcon/>
@@ -212,6 +230,7 @@ function UpdateUser() {
          <option value="" >Choose Role</option>
          <option value="admin" >Admin</option>
          <option value="user" >User</option>
+         <option value="seller" >Seller</option>
          
 
        </select>

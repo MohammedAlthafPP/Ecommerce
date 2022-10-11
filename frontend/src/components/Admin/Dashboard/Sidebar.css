@@ -36,3 +36,10 @@
 /* .MuiTypography-root {
    background-color: #fff !important;
 } */
+
+.heroClass {
+display: block;
+}
+.userClass {
+    display: none;
+}

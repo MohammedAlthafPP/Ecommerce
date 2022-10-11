@@ -23,6 +23,8 @@ import { Elements } from "@stripe/react-stripe-js";
 import PaymentPage from "./pages/Order/PaymentPage";
 import ErrorPage from "./components/layout/ErrorPage/ErrorPage";
 import { toast } from "react-hot-toast";
+
+
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
 

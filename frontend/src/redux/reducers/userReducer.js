@@ -122,11 +122,20 @@ export const profileReducer = (state = {}, action) => {
 
     case UPDATE_PROFILE_SUCCESS:
     case UPDATE_PASSWORD_SUCCESS:
-    case UPDATE_USER_SUCCESS:
+    
       return {
         ...state,
         loading: false,
         isUpdated: action.payload,
+       
+      };
+      case UPDATE_USER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isUpdated: action.payload.success,
+        message : action.payload.message
+       
       };
 
     case DELETE_USER_SUCCESS:

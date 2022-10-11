@@ -186,7 +186,7 @@ function NewProduct() {
 
                     {categoryList &&
                       createCategoryList(categoryList).map((option) => (
-                        <option key={option.value} value={option.value}>
+                        <option key={option.value} value={option.name}>
                           {option.name}
                         </option>
                       ))}
