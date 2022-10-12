@@ -24,6 +24,7 @@ import PaymentPage from "./pages/Order/PaymentPage";
 import ErrorPage from "./components/layout/ErrorPage/ErrorPage";
 import { toast } from "react-hot-toast";
 import WishlistPage from "./pages/Product/WishlistPage";
+import { getWishlistItems } from "./redux/actions/wishlistAction";
 
 
 function App() {
@@ -40,10 +41,15 @@ function App() {
   }
 
   useEffect(() => {
-    store.dispatch(getShippingInfo());
-    store.dispatch(loadUser());
-    store.dispatch(myCartItems());
-    getStripeApiKey();
+    
+      store.dispatch(getShippingInfo());
+      store.dispatch(loadUser());
+      store.dispatch(myCartItems());
+      store.dispatch(getWishlistItems());
+      getStripeApiKey();
+
+    
+   
   }, []);
 
   // window.addEventListener("contextmenu",(e)=>e.preventDefault());

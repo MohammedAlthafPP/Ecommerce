@@ -154,6 +154,24 @@ exports.deleteProduct = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
+//Delete Products ---Admin
+exports.removeProduct = catchAsyncErrors(async (req, res, next) => {
+  const product = await Product.findById(req.params.id);
+
+  if (!product) {
+    return next(new ErrorHander("Product not found", 404));
+  }
+const name = product.name;
+  await Product.updateOne({_id:req.params.id},{$set: {isRemoved : true}})
+
+
+
+  res.status(200).json({
+    success: true,
+    message: `Successfully deleted product ${name}`,
+  });
+});
+
 //Create New Review Or Update Review
 exports.createPruductReview = catchAsyncErrors(async (req, res, next) => {
   const { rating, comment, productId } = req.body;

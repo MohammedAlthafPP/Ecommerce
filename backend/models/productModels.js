@@ -123,6 +123,10 @@ const prodctSchema = mongoose.Schema({
         ref: "User",
         required:true,
 
+    },
+    isRemoved:{
+        type:Boolean,
+        default:false,
     }
 
 })

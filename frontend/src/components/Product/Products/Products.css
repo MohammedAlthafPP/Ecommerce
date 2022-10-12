@@ -155,6 +155,9 @@
     font: 400 2vmax var(--Roboto-font-family) !important;
     margin: 0.5vmax !important;
   }
+  .category-linkAll {
+   font-size: 3vmax !important;
+  }
 }
 
 
@@ -194,3 +197,10 @@
   color: #ff6347;
 }
 
+.category-linkAll {
+  color: rgba(0, 0, 0, 0.790);
+  font: 600 1.4vmax var(--Roboto-font-family);
+  margin: 0.4vmax 0;
+  cursor: pointer;
+
+}

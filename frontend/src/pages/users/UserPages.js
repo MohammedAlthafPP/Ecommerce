@@ -4,7 +4,8 @@ import LoginSignUp from "../../components/User/LoginSignup/LoginSignUp";
 import ProfilePage from "./ProfilePage";
 //import ProtectedRoute from "../../components/Route/ProtectedRoute";
 
-import PrivateRoute from "../../components/Route/PrivateRoute";
+ import PrivateRoute from "../../components/Route/PrivateRoute";
+ import PrivateRouteUser from "../../components/Route/PrivetRouteUser";
 import UpdateProfilePage from "./UpdateProfilePage";
 import UpdatePasswordPage from "./UpdatePasswordPage";
 import ForgotPasswordPage from "./ForgotPasswordPage";
@@ -30,9 +31,9 @@ function UserPages() {
         <Route path="" element={<UpdatePasswordPage />} />
       </Route>
 
-       <Route path="/verify/phone" element={<PrivateRoute />}>
+       {/* <Route path="/verify/phone" element={<PrivateRoute />}>
         <Route path="" element={<VerifyPhoneNumberPage />} />
-      </Route>
+      </Route> */}
 
        <Route path="/shipping" element={<PrivateRoute />}>
         <Route path="" element={<CreateShippingPage />} />
@@ -43,7 +44,16 @@ function UserPages() {
 
       <Route path="*" element={<ErrorPage/>} />
 
-      {/* <Route path="/verify/phone" element={<VerifyPhoneNumberPage />} /> */}
+      <Route path="/verify/phone" element={<VerifyPhoneNumberPage />} />
+
+
+        {/* <Route path="/verify/phone" element={<PrivateRouteUser />}>
+        <Route path="" element={<VerifyPhoneNumberPage />} />
+      </Route> */}
+
+
+
+
       
     </Routes>
   );

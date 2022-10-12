@@ -8,6 +8,7 @@ import {
   myCartItems,
 } from "../../../redux/actions/cartAction";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
+import StorefrontIcon from '@mui/icons-material/Storefront';
 import Typography from "@mui/material/Typography";
 import { Link, useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
@@ -94,7 +95,7 @@ function Wishlist() {
         <Fragment>
           {(wishlistItems && wishlistItems.length === 0) || !wishlistItems ? (
             <div className="emptyCart">
-              <RemoveShoppingCartIcon />
+              <StorefrontIcon />
 
               <Typography>No Product in Your Wishlist</Typography>
               <Link to="/products">View Products</Link>

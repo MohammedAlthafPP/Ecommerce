@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
@@ -18,7 +18,8 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 import "./Header.css";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getWishlistItems } from "../../../redux/actions/wishlistAction";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -62,8 +63,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function Header() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [keyword, setKeyword] = useState("");
   const { cartItems } = useSelector((state) => state.mycart);
+  const { isAuthenticated} = useSelector((state) => state.user);
+  const { wishlistItems } = useSelector((state) => state.myWishlist);
+  
+
 
   const searchSubmitHandler = (e) => {
     e.preventDefault();
@@ -179,7 +185,7 @@ export default function Header() {
           color="inherit"
           onClick={wishlistHandler}
         >
-          <Badge badgeContent={17} color="error">
+          <Badge badgeContent={wishlistItems&&wishlistItems.length} color="error">
             {/* <NotificationsIcon /> */}
             <FavoriteBorderIcon />
           </Badge>
@@ -253,7 +259,7 @@ export default function Header() {
               color="inherit"
               onClick={wishlistHandler}
             >
-              <Badge badgeContent={17} color="error">
+              <Badge badgeContent={wishlistItems&&wishlistItems.length} color="error">
                 <FavoriteBorderIcon />
               </Badge>
             </IconButton>

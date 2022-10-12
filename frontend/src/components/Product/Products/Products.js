@@ -164,7 +164,9 @@ function Products() {
             </ul> */}
 
             <div className="categoryContainer">
+            
             <ul >
+            <li className="category-linkAll" onClick={allproductsHandler}>All Categories</li>
               {categoryList && categoryList.length > 0
                 ? renderCategories(categoryList)
                 : null}

@@ -20,8 +20,7 @@ function VerifyPhoneNumber() {
   const { error, message, loading, isVerified, isResend } = useSelector(
     (state) => state.verifyUser
   );
-  const { user } = useSelector((state) => state.user);
-
+  const { user,isAuthenticated } = useSelector((state) => state.user);
   const [otp, setOtp] = useState("");
 
  
@@ -50,6 +49,9 @@ if(Object.keys(details).length === 0){
   };
 
   useEffect(() => {
+    
+      
+    
    
     if (error) {
       alert.error(error.message);
@@ -65,6 +67,7 @@ if(Object.keys(details).length === 0){
       alert.success(message);
       
     }
+  
   }, [dispatch, error, alert, message,isResend,isVerified]);
 
   return (
